@@ -16,11 +16,10 @@ class Condutor {
     int turno;          //n de horas por turno
     int horasPorSemana; //n de horas trabalhadas por semana
     int descanso;       //n de horas de descanso obrigatório entre os turnos
-    
     string nome;        //nome do condutor
-    
+
 public:
-    
+
 };
 
 #endif /* Condutor_h */

@@ -11,10 +11,5 @@
 
 int main(int argc, const char * argv[]) {
   vector<Linha> linhas = FileService().getLinhas();
-  vector<Condutor> condutores = FileService().getCondutores();
-
-  for (Linha linha: linhas) {
-    cout << linha << endl;
-  }
-
+  //vector<Condutor> condutores = FileService().getCondutores();
 }
