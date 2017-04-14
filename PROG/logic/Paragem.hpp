@@ -13,9 +13,12 @@
 
 class Paragem {
     string nome;
-    
+
 public:
-    
+  Paragem(string nome);
+
+  string getNome();
+
 };
 
 

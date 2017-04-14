@@ -20,13 +20,14 @@ vector<Condutor> FileService::getCondutores(){
   //  ver se ficheiro esta aberto
   if (ficheiroCondutores.is_open()) {
     // loop de linhas do ficheiro
-    while (!ficheiroCondutores.eof()) {
+    do {
       string linha;
 
       getline(ficheiroCondutores, linha);
 
       cout << linha << endl;
-    }
+    } while (!ficheiroCondutores.eof());
+    
   }
   ficheiroCondutores.close();
   return newCondutores;
