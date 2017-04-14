@@ -20,9 +20,14 @@ class Linha {
     int freq;                   //  frequencia de circulacao
     vector<Paragem> paragens;   //  paragens que constituem
     vector<int> tempos;         //  tempos de viagens
-    
+
 public:
-    
+
+  /**
+   * Operator function
+   */
+  friend istream& operator>> (istream &is, Linha &linha);
+  friend ostream& operator<< (ostream &os, Linha &linha);
 };
 
 

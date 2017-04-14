@@ -9,15 +9,15 @@
 #ifndef FileService_hpp
 #define FileService_hpp
 
-#include <stdio.h>
-#include <fstream>
-#include <iostream>
+#include "Header.hpp"
+#include "Transportadora.hpp"
 
 class FileService {
-    
+
 public:
-    void getData();
-    
+
+    static vector<Linha> getLinhas();
+    static vector<Condutor> getCondutores();
 };
 
 #endif /* FileService_hpp */
