@@ -6,12 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		510A60401EA041A7001FEA60 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 510A603F1EA041A7001FEA60 /* main.cpp */; };
-		51633D521EA131F100FD2F1D /* FileService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51633D501EA131F100FD2F1D /* FileService.cpp */; };
-		51633D541EA1374B00FD2F1D /* Transportadora.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51633D531EA1374B00FD2F1D /* Transportadora.cpp */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		510A603A1EA041A7001FEA60 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -26,15 +20,8 @@
 
 /* Begin PBXFileReference section */
 		510A603C1EA041A7001FEA60 /* PROG */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PROG; sourceTree = BUILT_PRODUCTS_DIR; };
-		510A603F1EA041A7001FEA60 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		51633D491EA12ACD00FD2F1D /* Linha.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Linha.hpp; sourceTree = "<group>"; };
-		51633D4A1EA12BD600FD2F1D /* Paragem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Paragem.hpp; sourceTree = "<group>"; };
-		51633D4B1EA12E4B00FD2F1D /* Header.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
-		51633D4C1EA12ED300FD2F1D /* Condutor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Condutor.hpp; sourceTree = "<group>"; };
-		51633D4F1EA1304700FD2F1D /* Transportadora.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transportadora.hpp; sourceTree = "<group>"; };
-		51633D501EA131F100FD2F1D /* FileService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileService.cpp; sourceTree = "<group>"; };
-		51633D511EA131F100FD2F1D /* FileService.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileService.hpp; sourceTree = "<group>"; };
-		51633D531EA1374B00FD2F1D /* Transportadora.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Transportadora.cpp; sourceTree = "<group>"; };
+		51633D551EA13D7A00FD2F1D /* gui */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gui; sourceTree = "<group>"; };
+		51633D561EA13D9800FD2F1D /* logic */ = {isa = PBXFileReference; lastKnownFileType = folder; path = logic; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,33 +54,10 @@
 		510A603E1EA041A7001FEA60 /* PROG */ = {
 			isa = PBXGroup;
 			children = (
-				51633D4E1EA12FF700FD2F1D /* gui */,
-				51633D4D1EA12FED00FD2F1D /* logic */,
+				51633D561EA13D9800FD2F1D /* logic */,
+				51633D551EA13D7A00FD2F1D /* gui */,
 			);
 			path = PROG;
-			sourceTree = "<group>";
-		};
-		51633D4D1EA12FED00FD2F1D /* logic */ = {
-			isa = PBXGroup;
-			children = (
-				51633D491EA12ACD00FD2F1D /* Linha.hpp */,
-				51633D4A1EA12BD600FD2F1D /* Paragem.hpp */,
-				51633D4C1EA12ED300FD2F1D /* Condutor.hpp */,
-				51633D4F1EA1304700FD2F1D /* Transportadora.hpp */,
-				51633D531EA1374B00FD2F1D /* Transportadora.cpp */,
-				51633D4B1EA12E4B00FD2F1D /* Header.hpp */,
-				51633D501EA131F100FD2F1D /* FileService.cpp */,
-				51633D511EA131F100FD2F1D /* FileService.hpp */,
-			);
-			name = logic;
-			sourceTree = "<group>";
-		};
-		51633D4E1EA12FF700FD2F1D /* gui */ = {
-			isa = PBXGroup;
-			children = (
-				510A603F1EA041A7001FEA60 /* main.cpp */,
-			);
-			name = gui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +118,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51633D541EA1374B00FD2F1D /* Transportadora.cpp in Sources */,
-				510A60401EA041A7001FEA60 /* main.cpp in Sources */,
-				51633D521EA131F100FD2F1D /* FileService.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
