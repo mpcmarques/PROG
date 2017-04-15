@@ -15,10 +15,13 @@
 class Transportadora {
     vector<Linha> linhas;
     vector<Condutor> condutores;
-    
+
 public:
 
     Transportadora(vector<Linha> linhas, vector<Condutor> condutores);
+
+    vector<Condutor> getCondutores();
+    vector<Linha> getLinhas();
 };
 
 

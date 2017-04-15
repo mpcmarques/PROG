@@ -8,6 +8,25 @@
 
 #include "FileService.hpp"
 
+void FileService::saveData(Transportadora transportadora){
+  //  salvar condutores
+  ofstream ficheiroCondutores;
+  ficheiroCondutores.open(TXT_CONDUTORES, 'w');
+
+  for (Condutor cond: transportadora.getCondutores()) {
+    ficheiroCondutores << cond << endl;
+  }
+  ficheiroCondutores.close();
+
+  //  salvar linhas
+  ofstream ficheiroLinhas;
+  ficheiroLinhas.open(TXT_LINHAS, 'w');
+
+  for (Linha linha: transportadora.getLinhas()) {
+    ficheiroLinhas << linha << endl;
+  }
+  ficheiroCondutores.close();
+}
 
 vector<Condutor> FileService::getCondutores(){
   //  começar com arrays vazias
@@ -15,7 +34,7 @@ vector<Condutor> FileService::getCondutores(){
 
   //  abrir ficheiro de condutores
   ifstream ficheiroCondutores;
-  ficheiroCondutores.open("condutores.txt");
+  ficheiroCondutores.open(TXT_CONDUTORES);
 
   //  ver se ficheiro esta aberto
   if (ficheiroCondutores.is_open()) {
@@ -40,7 +59,7 @@ vector<Linha> FileService::getLinhas(){
 
   //  abrir ficheiro de linhas
   ifstream ficheiroLinhas;
-  ficheiroLinhas.open("linhas.txt");
+  ficheiroLinhas.open(TXT_LINHAS);
 
   //  ver se ficheiro esta aberto
   if (ficheiroLinhas.is_open()) {

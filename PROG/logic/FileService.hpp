@@ -9,15 +9,18 @@
 #ifndef FileService_hpp
 #define FileService_hpp
 
+#define TXT_CONDUTORES "condutores.txt"
+#define TXT_LINHAS "linhas.txt"
+
 #include "Header.hpp"
 #include "Transportadora.hpp"
 
 class FileService {
 
 public:
-
-    static vector<Linha> getLinhas();
-    static vector<Condutor> getCondutores();
+    vector<Linha> getLinhas();
+    vector<Condutor> getCondutores();
+    void saveData(Transportadora transportadora);
 };
 
 #endif /* FileService_hpp */

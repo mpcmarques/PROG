@@ -12,3 +12,11 @@ Transportadora::Transportadora(vector<Linha> linhas, vector<Condutor> condutores
     this->linhas = linhas;
     this->condutores = condutores;
 }
+
+vector<Condutor> Transportadora::getCondutores(){
+  return this->condutores;
+}
+
+vector<Linha> Transportadora::getLinhas(){
+  return this->linhas;
+}
