@@ -20,6 +20,8 @@ class Condutor {
 
 public:
 
+  friend istream& operator>>(istream &is, Condutor &condutor);
+  friend ostream& operator<<(ostream &os, Condutor &condutor);
 };
 
 #endif /* Condutor_h */

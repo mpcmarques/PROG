@@ -39,8 +39,6 @@ istream& operator>> (istream &is, Linha &linha){
     //  configurar tempos
     vector<string> newTemposString = split(data[3], ',');
     linha.tempos = stringsToInt(newTemposString);
-
-    cout << linha << endl;
   }
 
   return is;

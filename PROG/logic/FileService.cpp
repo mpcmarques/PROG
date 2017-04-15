@@ -20,15 +20,15 @@ vector<Condutor> FileService::getCondutores(){
   //  ver se ficheiro esta aberto
   if (ficheiroCondutores.is_open()) {
     // loop de linhas do ficheiro
-    do {
-      string linha;
+    while(!ficheiroCondutores.eof()){
+      Condutor condutor;
 
-      getline(ficheiroCondutores, linha);
+      ficheiroCondutores >> condutor;
 
-      cout << linha << endl;
-    } while (!ficheiroCondutores.eof());
-    
+      newCondutores.push_back(condutor);
+    }
   }
+
   ficheiroCondutores.close();
   return newCondutores;
 }
@@ -46,14 +46,14 @@ vector<Linha> FileService::getLinhas(){
   if (ficheiroLinhas.is_open()) {
     // loop de linhas do ficheiro
     while (!ficheiroLinhas.eof()) {
+      //  criar nova linha e obter dados
       Linha linha;
-
       ficheiroLinhas >> linha;
-
+      // adicionar linha ao novo vetor
       newLinhas.push_back(linha);
     }
   }
-
+  //  retornar as linhas adquiridas
   ficheiroLinhas.close();
   return newLinhas;
 }

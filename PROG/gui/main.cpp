@@ -10,6 +10,12 @@
 #include "../logic/FileService.hpp"
 
 int main(int argc, const char * argv[]) {
-  vector<Linha> linhas = FileService().getLinhas();
-  vector<Condutor> condutores = FileService().getCondutores();
+  FileService fileService;
+
+  vector<Linha> linhas = fileService.getLinhas();
+  vector<Condutor> condutores = fileService.getCondutores();
+
+  Transportadora transportadora = Transportadora(linhas, condutores);
+
+  cout << "Criado uma transportadora com " << linhas.size() << " linhas e " << condutores.size() << " condutores." << endl;
 }
