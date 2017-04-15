@@ -11,5 +11,5 @@
 
 int main(int argc, const char * argv[]) {
   vector<Linha> linhas = FileService().getLinhas();
-  //vector<Condutor> condutores = FileService().getCondutores();
+  vector<Condutor> condutores = FileService().getCondutores();
 }

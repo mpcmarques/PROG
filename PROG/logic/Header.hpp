@@ -21,5 +21,8 @@
 /* namespace */
 using namespace std;
 
+//  Utility functions
+vector<string> split(string str, char delimiter);
+
 
 #endif /* Header_h */
