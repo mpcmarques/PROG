@@ -20,4 +20,4 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm *o ../logic/*o prog
+	rm -f *o ../logic/*o prog
