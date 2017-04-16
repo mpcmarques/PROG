@@ -21,6 +21,10 @@ class Condutor {
     std::string nome;        //nome do condutor
 
 public:
+  Condutor(){}; //  to be used by file I/O
+  
+  Condutor(int uid, std::string nome, int turno, int horasPorSemana, int descanso);
+
   std::string getNome(){ return nome;};
   int getUid(){ return uid; };
 

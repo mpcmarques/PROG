@@ -18,11 +18,11 @@ Transportadora::Transportadora(){
   this->condutores = vector<Condutor>();
 }
 
-void Transportadora::addLinha(Linha linha){
+void Transportadora::addLinha(const Linha linha){
   this->linhas.push_back(linha);
 }
 
-void Transportadora::addCondutor(Condutor condutor){
+void Transportadora::addCondutor(const Condutor condutor){
   this->condutores.push_back(condutor);
 }
 

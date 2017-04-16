@@ -1,6 +1,13 @@
 #include "Condutor.hpp"
 
 
+Condutor::Condutor(int uid, std::string nome, int turno, int horasPorSemana, int descanso){
+  this->uid = uid;
+  this->nome = nome;
+  this->turno = turno;
+  this->horasPorSemana = horasPorSemana;
+  this->descanso = descanso;
+}
 
 std::istream& operator>>(std::istream &is, Condutor &condutor){
   std::string str;

@@ -48,7 +48,7 @@ void listarLinhasDisponiveis(){
  */
 void removerLinha(){
   unsigned int opt;
-
+  cout << " - Remover Linha - " << endl;
   //  mostrar linhas
   listarLinhasDisponiveis();
   //  pedir para escolher linha
@@ -151,8 +151,8 @@ void gerirLinhas(){
   cout << "1 -> Adicionar linha " << endl;
   cout << "2 -> Remover linha" << endl;
   cout << "3 -> Listar linhas disponíveis" << endl;
-  cout << "4 -> Voltar ao menu" << endl;
-  cout << "0 -> Sair" << endl;
+  //  TODO gerir linhas
+  cout << "0 -> Voltar ao menu" << endl;
 
   if (!(cin >> opt) || opt < 0 || opt > 4) {
     cout << "Opção inválida!" << endl;
@@ -178,7 +178,7 @@ void listarCondutoresDisponiveis(){
  */
 void removerCondutor(){
   unsigned int opt;
-
+  cout << " - Remover condutor - " << endl;
   //  mostrar linhas
   listarCondutoresDisponiveis();
 
@@ -195,12 +195,51 @@ void removerCondutor(){
 }
 
 /**
- * Handler do menu de gestão de linnhas
+ * Mostra o menu de adição de condutores
+ */
+void adicionarCondutor(){
+  string nome;
+  int turno, horasPorSemana, descanso;
+
+  cout << " - Adicionar Condutor - " << endl;
+  cout << "Qual o nome do condutor?" << endl;
+  //nome
+  cin.ignore();
+  if(!(getline(cin, nome))){
+    cout << "Erro: nome inválido!" << endl;
+    return;
+  }
+  //turno
+  cout << "Quantas horas é o turno diário?" << endl;
+  if (!(cin >> turno) || turno > 24 || turno < 0){
+    cout << "Erro: turno inválido!" << endl;
+    return;
+  }
+  //horas por semana
+  cout << "Quantas horas por semana?" << endl;
+  if (!(cin >> horasPorSemana) || horasPorSemana > 168 || horasPorSemana < 0){
+    cout << "Erro: horas por semana inválida!" << endl;
+    return;
+  }
+  //descanso
+  cout << "Qual o número mínimo de horas de descanso?"<< endl;
+  if (!(cin >> descanso) || descanso > 24 || descanso < 0) {
+    cout << "Erro: horário de descanso inválido" << endl;
+  }
+
+  Condutor condutor = Condutor(transportadora.getCondutores().size(), nome, turno,  horasPorSemana, descanso);
+
+  transportadora.addCondutor(condutor);
+  cout << "Condutor adicionado com sucesso!" << endl;
+}
+
+/**
+ * Handler do menu de gestão de linhas
  * @param opt Opção escolhida da gestão de linhas
  */
 void gerirCondutoresHandler(int opt){
   switch (opt) {
-    case 1: // TODO adiciona condutor
+    case 1: adicionarCondutor();
     break;
     case 2: removerCondutor();
     break;
@@ -223,8 +262,8 @@ void gerirCondutores(){
   cout << "1 -> Adicionar condutor" << endl;
   cout << "2 -> Remover condutor" << endl;
   cout << "3 -> Listar condutores disponíveis" << endl;
-  cout << "4 -> Voltar ao menu" << endl;
-  cout << "0 -> Sair" << endl;
+  //  TODO editar condutor
+  cout << "0 -> Voltar ao menu" << endl;
 
   if (!(cin >> opt) || opt < 0 || opt > 4) {
     cout << "Opção inválida!" << endl;
@@ -273,5 +312,11 @@ void showMenu(){
     return;
   }
 
-  menuOptHandler(opt);
+  if (opt != 0) {
+    menuOptHandler(opt);
+    //  chama menu recursivamente
+    cout << "Tecle enter para voltar ao menu principal.." << endl;
+    cin.ignore(); cin.ignore();
+    showMenu();
+  }
 }
