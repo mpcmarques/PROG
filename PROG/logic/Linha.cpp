@@ -10,6 +10,13 @@ vector<Paragem> stringToParagens(std::vector<string> stringParagens){
   return newParagens;
 }
 
+Linha::Linha(int uid, int freq, std::vector<Paragem> paragens, std::vector<int> tempos){
+  this->uid = uid;
+  this->freq = freq;
+  this->paragens = paragens;
+  this->tempos = tempos;
+}
+
 vector<int> stringsToInt(vector<string> newTemposString){
   std::vector<int> newVector;
   for(string tempoString: newTemposString){

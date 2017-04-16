@@ -5,7 +5,7 @@
 //  Created by Mateus Pedroza on 14/04/17.
 //  Copyright © 2017 Mateus Pedroza. All rights reserved.
 //
-#include "../logic/Header.hpp"
+#include "../logic/FileService.hpp"
 
 using namespace std;
 
@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
 
 void listarLinhasDisponiveis(){
   std::vector<Linha> linhas = transportadora.getLinhas();
-  int count = 0;
+  int count = 1;
   for (Linha linha: linhas) {
     cout << count++ << " ~>" << " " << linha << endl;
   }
@@ -74,7 +74,7 @@ void adicionarLinha(){
   //  frequencia
   int freq;
   cout << "Qual a frequência?" << endl;
-  if (!(cin >> freq) || freq > 0){
+  if (!(cin >> freq) || freq < 0){
     cout << "Frequência inválida" << endl;
     return;
   }
@@ -83,17 +83,18 @@ void adicionarLinha(){
   int numParagens;
   cout << "Qual a quantidade de paragens que a linha vai ter? " << endl;
 
-  if(!(cin >> numParagens) || numParagens > 0){
+  if(!(cin >> numParagens) || numParagens < 0){
     cout << "Número de paragens inválido" << endl;
     return;
   }
 
+  cin.ignore();
   //  loop adicionando paragens
   for (int i = 1; i <= numParagens; i++) {
     string nome;
     cout << "Qual o nome da " << i << " paragem?" << endl;
 
-    if (!(cin >> nome)) {
+    if (!(getline(cin, nome))){
       cout << "Erro: Nome inválido!" << endl;
       return;
     }
@@ -105,9 +106,9 @@ void adicionarLinha(){
   // adicionar tempos
   for(int i = 1; i <= (int)newParagens.size(); i++){
     int tempo;
-    cout << "Qual o tempo do " << i << " percurso?";
+    cout << "Qual o tempo do " << i << " percurso?" << endl;
 
-    if (cin >> tempo || tempo < 0) {
+    if (!(cin >> tempo) || tempo < 0) {
       cout << "Erro: Tempo inválido!" << endl;
       return;
     }

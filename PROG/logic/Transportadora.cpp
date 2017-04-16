@@ -18,6 +18,13 @@ Transportadora::Transportadora(){
   this->condutores = vector<Condutor>();
 }
 
+void Transportadora::addLinha(Linha linha){
+  this->linhas.push_back(linha);
+}
+
+void Transportadora::addCondutor(Condutor condutor){
+  this->condutores.push_back(condutor);
+}
 
 void Transportadora::removerLinha(int opt){
   this->linhas.erase(linhas.begin() + opt);

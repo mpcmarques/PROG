@@ -24,6 +24,8 @@ class Linha {
     std::vector<int> tempos;         //  tempos de viagens
 
 public:
+  Linha(){};
+  Linha(int uid, int freq, std::vector<Paragem> paragens, std::vector<int> tempos);
 
   /**
    * Operator function

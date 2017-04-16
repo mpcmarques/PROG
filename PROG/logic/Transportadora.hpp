@@ -24,6 +24,9 @@ public:
     void removerCondutor(int opt);
     void removerLinha(int opt);
 
+    void addLinha(Linha linha);
+    void addCondutor(Condutor condutor);
+
     //  getters
     std::vector<Condutor> getCondutores();
     std::vector<Linha> getLinhas();
