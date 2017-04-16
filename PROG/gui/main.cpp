@@ -10,6 +10,8 @@
 #include "../logic/FileService.hpp"
 #include <unistd.h>
 
+//  mantem uma só instância da transportadora
+static Transportadora transportadora;
 
 void showMenu();
 
@@ -19,7 +21,7 @@ int main(int argc, const char * argv[]) {
   vector<Linha> linhas = fileService.getLinhas();
   vector<Condutor> condutores = fileService.getCondutores();
 
-  Transportadora transportadora = Transportadora(linhas, condutores);
+  transportadora = Transportadora(linhas, condutores);
 
   cout << "Foi carregado uma transportadora com " << linhas.size() << " linhas e " << condutores.size() << " condutores." << endl;
 
@@ -34,6 +36,34 @@ int main(int argc, const char * argv[]) {
 
 //  MARK: GUI
 
+void listarLinhasDisponiveis(){
+  std::vector<Linha> linhas = transportadora.getLinhas();
+  int count = 0;
+  for (Linha linha: linhas) {
+    cout << count++ << " ~>" << " " << linha << endl;
+  }
+}
+
+/**
+ * Mostra opções de remoção de linha.
+ */
+void removerLinha(){
+  unsigned int opt;
+
+  //  mostrar linhas
+  listarLinhasDisponiveis();
+  //  pedir para escolher linha
+  cout << "Deseja remover qual linha? " << endl;
+
+  if (!(cin >> opt) || opt > transportadora.getLinhas().size()){
+    cout << "Opção inválida" << endl;
+    return;
+  }
+
+  transportadora.removerLinha(opt);
+  cout << "Linha removida com sucesso!" << endl;
+}
+
 /**
  * Handler do menu de gestão de linnhas
  * @param opt Opção escolhida da gestão de linhas
@@ -42,15 +72,13 @@ void gerirLinhasHandler(int opt){
   switch (opt) {
     case 1: // TODO adiciona linha
     break;
-    case 2: // TODO remove linha
+    case 2: removerLinha();
     break;
-    case 3: //  TODO listar linhas
+    case 3: listarLinhasDisponiveis();
     default:
     break;
   }
 }
-
-
 
 /**
 * Apresentao menu de gestão de linhas
@@ -74,6 +102,38 @@ void gerirLinhas(){
 }
 
 /**
+ * Lista condutores disponíveis
+ */
+void listarCondutoresDisponiveis(){
+  std::vector<Condutor> condutores = transportadora.getCondutores();
+  int count = 0;
+  for (Condutor condutor: condutores) {
+    cout << count++ << " ~>" << " " << condutor.getUid() << " " << condutor.getNome() << endl;
+  }
+}
+
+/**
+ * Mostra as opções de remoção de um condutor
+ */
+void removerCondutor(){
+  unsigned int opt;
+
+  //  mostrar linhas
+  listarCondutoresDisponiveis();
+
+  //  pedir para escolher linha
+  cout << "Deseja remover qual condutor?" << endl;
+
+  if (!(cin >> opt) || opt > transportadora.getCondutores().size()){
+    cout << "Opção inválida" << endl;
+    return;
+  }
+
+  transportadora.removerCondutor(opt);
+  cout << "Condutor removido com sucesso!" << endl;
+}
+
+/**
  * Handler do menu de gestão de linnhas
  * @param opt Opção escolhida da gestão de linhas
  */
@@ -83,7 +143,7 @@ void gerirCondutoresHandler(int opt){
     break;
     case 2: // TODO remove condutor
     break;
-    case 3: //  TODO listar condutores
+    case 3: listarCondutoresDisponiveis();
     default:
     break;
   }

@@ -1,9 +1,9 @@
 #include "Paragem.hpp"
 
-Paragem::Paragem(string nome){
+Paragem::Paragem(std::string nome){
   this->nome = nome;
 }
 
-string Paragem::getNome(){
+std::string Paragem::getNome(){
   return this->nome;
 }

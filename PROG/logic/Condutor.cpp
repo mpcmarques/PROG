@@ -1,10 +1,11 @@
 #include "Condutor.hpp"
 
 
-istream& operator>>(istream &is, Condutor &condutor){
-  string str;
-  string nome;
-  string sobrenome;
+
+std::istream& operator>>(std::istream &is, Condutor &condutor){
+  std::string str;
+  std::string nome;
+  std::string sobrenome;
 
   is >> condutor.uid >> str >> nome >> sobrenome >> str >> condutor.turno;
   is >> str >> condutor.horasPorSemana >> str >> condutor.descanso;
@@ -14,7 +15,7 @@ istream& operator>>(istream &is, Condutor &condutor){
   return is;
 }
 
-ostream& operator<<(ostream &os, Condutor &condutor){
+std::ostream& operator<<(std::ostream &os, Condutor &condutor){
   os << condutor.uid << " ; ";
   os << condutor.nome << " ; ";
   os << condutor.turno << " ; ";

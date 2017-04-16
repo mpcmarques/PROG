@@ -9,19 +9,23 @@
 #ifndef Condutor_h
 #define Condutor_h
 
-#include "Header.hpp"
+#include <iostream>
+#include <string>
+#include <stdlib.h>
 
 class Condutor {
     int uid;            //n de identificacao unico
     int turno;          //n de horas por turno
     int horasPorSemana; //n de horas trabalhadas por semana
     int descanso;       //n de horas de descanso obrigatório entre os turnos
-    string nome;        //nome do condutor
+    std::string nome;        //nome do condutor
 
 public:
+  std::string getNome(){ return nome;};
+  int getUid(){ return uid; };
 
-  friend istream& operator>>(istream &is, Condutor &condutor);
-  friend ostream& operator<<(ostream &os, Condutor &condutor);
+  friend std::istream& operator>>(std::istream &is, Condutor &condutor);
+  friend std::ostream& operator<<(std::ostream &os, Condutor &condutor);
 };
 
 #endif /* Condutor_h */

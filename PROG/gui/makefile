@@ -8,7 +8,7 @@ LOGICSOURCES=$(LOGICPATH)FileService.cpp $(LOGICPATH)Linha.cpp $(LOGICPATH)Trans
 SOURCES=main.cpp $(LOGICSOURCES)
 
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=prog
+EXECUTABLE=prog.out
 
 all: $(SOURCES) $(EXECUTABLE)
 
@@ -20,4 +20,4 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f *o ../logic/*o prog
+	rm -f *o ../logic/*o *gch ../logic/*gch prog

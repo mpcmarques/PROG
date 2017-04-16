@@ -13,6 +13,20 @@ Transportadora::Transportadora(vector<Linha> linhas, vector<Condutor> condutores
     this->condutores = condutores;
 }
 
+Transportadora::Transportadora(){
+  this->linhas = vector<Linha>();
+  this->condutores = vector<Condutor>();
+}
+
+
+void Transportadora::removerLinha(int opt){
+  this->linhas.erase(linhas.begin() + opt);
+}
+
+void Transportadora::removerCondutor(int opt){
+  this->condutores.erase(condutores.begin() + opt);
+}
+
 vector<Condutor> Transportadora::getCondutores(){
   return this->condutores;
 }

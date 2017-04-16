@@ -11,6 +11,8 @@
 
 /* Includes */
 #include "Paragem.hpp"
+#include <vector>
+#include "Header.hpp"
 
 /**
  Representa uma linha
@@ -18,16 +20,16 @@
 class Linha {
     int uid;                    //  id unico
     int freq;                   //  frequencia de circulacao
-    vector<Paragem> paragens;   //  paragens que constituem
-    vector<int> tempos;         //  tempos de viagens
+    std::vector<Paragem> paragens;   //  paragens que constituem
+    std::vector<int> tempos;         //  tempos de viagens
 
 public:
 
   /**
    * Operator function
    */
-  friend istream& operator>> (istream &is, Linha &linha);
-  friend ostream& operator<< (ostream &os, Linha &linha);
+  friend std::istream& operator>> (std::istream &is, Linha &linha);
+  friend std::ostream& operator<< (std::ostream &os, Linha &linha);
 };
 
 

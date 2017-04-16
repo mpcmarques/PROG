@@ -9,15 +9,17 @@
 #ifndef Paragem_h
 #define Paragem_h
 
-#include "Header.hpp"
+#include <iostream>
+
+using namespace std;
 
 class Paragem {
-    string nome;
+  std::string nome;
 
 public:
-  Paragem(string nome);
+  Paragem(std::string nome);
 
-  string getNome();
+  std::string getNome();
 
 };
 
