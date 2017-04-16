@@ -23,6 +23,7 @@ using namespace std;
 
 //  Utility functions
 vector<string> split(string str, char delimiter);
+string trimString(const string& str);
 
 
 #endif /* Header_h */

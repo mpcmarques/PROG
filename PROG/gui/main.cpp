@@ -21,44 +21,82 @@ int main(int argc, const char * argv[]) {
 
   Transportadora transportadora = Transportadora(linhas, condutores);
 
-  cout << "Criado uma transportadora com " << linhas.size() << " linhas e " << condutores.size() << " condutores." << endl;
+  cout << "Foi carregado uma transportadora com " << linhas.size() << " linhas e " << condutores.size() << " condutores." << endl;
 
   //  mostrar menu
-  //showMenu();
+  showMenu();
 
   //  terminar programa, salvar dados.
   fileService.saveData(transportadora);
-  cout << "Dados salvos com sucesso!" << endl;
+  cout << endl << "Dados salvos com sucesso!" << endl;
   return 0;
 }
+
+//  MARK: GUI
+
+
 
 /**
 * Apresentao menu de gestão de linhas
 */
 void gerirLinhas(){
-  //  TODO adicionar linha
-  //  TODO remove linha
-  //  TODO listar linhas disponíveis
+  int opt;
+
+  cout << endl << "## GERIR LINHAS ##" << endl;
+  cout << "1 -> Adicionar linha " << endl;
+  cout << "2 -> Remover linha" << endl;
+  cout << "3 -> Listar linhas disponíveis" << endl;
+  cout << "4 -> Voltar ao menu" << endl;
+  cout << "0 -> Sair" << endl;
+
+  if (!(cin >> opt) || opt < 0 || opt > 4) {
+    cout << "Opção inválida!" << endl;
+    return;
+  }
+
+
 }
 
 /**
 * Apresenta o menu de gestão de condutores
 */
 void gerirCondutores(){
-  //  TODO adicionar condutor
-  //  TODO remover condutor
-  //  TODO listar condutores disponíveis
+  int opt;
+
+  cout << endl << "## GERIR CONDUTORES ##" << endl;
+  cout << "1 -> Adicionar condutor" << endl;
+  cout << "2 -> Remover condutor" << endl;
+  cout << "3 -> Listar condutores disponíveis" << endl;
+  cout << "4 -> Voltar ao menu" << endl;
+  cout << "0 -> Sair" << endl;
+
+  if (!(cin >> opt) || opt < 0 || opt > 4) {
+    cout << "Opção inválida!" << endl;
+    return;
+  }
 }
 
-
+/**
+ * Handler do menu principal
+ * @param opt Opção do menu escolhida
+ */
 void menuOptHandler(int opt){
-
+  switch (opt) {
+    case 1: gerirLinhas();
+    break;
+    case 2: gerirCondutores();
+    break;
+    default: break;
+  }
 }
 
+/**
+ * Mostra menu principal
+ */
 void showMenu(){
   int opt;
 
-  cout << "Bem vindo a transportradora" << endl;
+  cout << endl <<  "## MENU PRINCIPAL ##" << endl;
   cout << "O que deseja fazer?" << endl;
 
   //  opcoes

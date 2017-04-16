@@ -4,7 +4,7 @@ vector<Paragem> stringToParagens(std::vector<string> stringParagens){
   vector<Paragem> newParagens;
   //  loop atraves das virgulas
   for(string paragemString: stringParagens){
-    Paragem newParagem = Paragem(paragemString);
+    Paragem newParagem = Paragem(trimString(paragemString));
     newParagens.push_back(newParagem);
   }
   return newParagens;
