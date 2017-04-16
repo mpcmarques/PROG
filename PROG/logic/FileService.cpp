@@ -11,7 +11,7 @@
 void FileService::saveData(Transportadora transportadora){
   //  salvar condutores
   ofstream ficheiroCondutores;
-  ficheiroCondutores.open(TXT_CONDUTORES, 'w');
+  ficheiroCondutores.open(TXT_CONDUTORES);
 
   for (Condutor cond: transportadora.getCondutores()) {
     ficheiroCondutores << cond << endl;
@@ -20,7 +20,7 @@ void FileService::saveData(Transportadora transportadora){
 
   //  salvar linhas
   ofstream ficheiroLinhas;
-  ficheiroLinhas.open(TXT_LINHAS, 'w');
+  ficheiroLinhas.open(TXT_LINHAS);
 
   for (Linha linha: transportadora.getLinhas()) {
     ficheiroLinhas << linha << endl;
@@ -42,9 +42,8 @@ vector<Condutor> FileService::getCondutores(){
     while(!ficheiroCondutores.eof()){
       Condutor condutor;
 
-      ficheiroCondutores >> condutor;
-
-      newCondutores.push_back(condutor);
+      if (ficheiroCondutores >> condutor)
+        newCondutores.push_back(condutor);
     }
   }
 
@@ -67,9 +66,9 @@ vector<Linha> FileService::getLinhas(){
     while (!ficheiroLinhas.eof()) {
       //  criar nova linha e obter dados
       Linha linha;
-      ficheiroLinhas >> linha;
-      // adicionar linha ao novo vetor
-      newLinhas.push_back(linha);
+
+      if(ficheiroLinhas >> linha)
+        newLinhas.push_back(linha);
     }
   }
   //  retornar as linhas adquiridas

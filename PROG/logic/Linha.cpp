@@ -52,7 +52,7 @@ ostream& operator<< (ostream &os, Linha &linha){
   os << " ;";
 
   //  paragens
-  for (int i = 0; i < linha.paragens.size(); i++) {
+  for (unsigned int i = 0; i < linha.paragens.size(); i++) {
     if (i < linha.paragens.size()-1){
       os << " " << linha.paragens[i].getNome() << ',';
     } else {
@@ -61,7 +61,7 @@ ostream& operator<< (ostream &os, Linha &linha){
   }
 
   //  tempos
-  for (int i = 0; i < linha.tempos.size(); i++) {
+  for (unsigned int i = 0; i < linha.tempos.size(); i++) {
     if (i < linha.tempos.size()-1){
       os << " " << linha.tempos[i] << ',';
     } else {
