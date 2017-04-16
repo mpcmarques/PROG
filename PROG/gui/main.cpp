@@ -5,10 +5,9 @@
 //  Created by Mateus Pedroza on 14/04/17.
 //  Copyright © 2017 Mateus Pedroza. All rights reserved.
 //
+#include "../logic/Header.hpp"
 
-#include "../logic/Transportadora.hpp"
-#include "../logic/FileService.hpp"
-#include <unistd.h>
+using namespace std;
 
 //  mantem uma só instância da transportadora
 static Transportadora transportadora;
@@ -65,16 +64,77 @@ void removerLinha(){
 }
 
 /**
+ * Mostra as opções de adição de uma linha
+ */
+void adicionarLinha(){
+  vector<Paragem> newParagens;
+  vector<int> newTempos;
+
+  cout << " - Adicionar linha - " << endl;
+  //  frequencia
+  int freq;
+  cout << "Qual a frequência?" << endl;
+  if (!(cin >> freq) || freq > 0){
+    cout << "Frequência inválida" << endl;
+    return;
+  }
+
+  //  paragens
+  int numParagens;
+  cout << "Qual a quantidade de paragens que a linha vai ter? " << endl;
+
+  if(!(cin >> numParagens) || numParagens > 0){
+    cout << "Número de paragens inválido" << endl;
+    return;
+  }
+
+  //  loop adicionando paragens
+  for (int i = 1; i <= numParagens; i++) {
+    string nome;
+    cout << "Qual o nome da " << i << " paragem?" << endl;
+
+    if (!(cin >> nome)) {
+      cout << "Erro: Nome inválido!" << endl;
+      return;
+    }
+
+    Paragem paragem = Paragem(nome);
+    newParagens.push_back(paragem);
+  }
+
+  // adicionar tempos
+  for(int i = 1; i <= (int)newParagens.size(); i++){
+    int tempo;
+    cout << "Qual o tempo do " << i << " percurso?";
+
+    if (cin >> tempo || tempo < 0) {
+      cout << "Erro: Tempo inválido!" << endl;
+      return;
+    }
+
+    newTempos.push_back(tempo);
+  }
+
+  Linha linha = Linha(transportadora.getLinhas().size(), freq, newParagens, newTempos);
+  transportadora.addLinha(linha);
+
+  cout << "Linha adicionada com sucesso!" << endl;
+}
+
+/**
  * Handler do menu de gestão de linnhas
  * @param opt Opção escolhida da gestão de linhas
  */
 void gerirLinhasHandler(int opt){
   switch (opt) {
-    case 1: // TODO adiciona linha
+    case 1: adicionarLinha();
     break;
     case 2: removerLinha();
     break;
     case 3: listarLinhasDisponiveis();
+    break;
+    case 4: // TODO editar linha
+    break;
     default:
     break;
   }
@@ -141,9 +201,12 @@ void gerirCondutoresHandler(int opt){
   switch (opt) {
     case 1: // TODO adiciona condutor
     break;
-    case 2: // TODO remove condutor
+    case 2: removerCondutor();
     break;
     case 3: listarCondutoresDisponiveis();
+    break;
+    case 4: //  TODO editar condutor
+    break;
     default:
     break;
   }
