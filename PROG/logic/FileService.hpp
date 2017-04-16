@@ -9,8 +9,8 @@
 #ifndef FileService_hpp
 #define FileService_hpp
 
-#define TXT_CONDUTORES "condutores.txt"
-#define TXT_LINHAS "linhas.txt"
+#define TXT_CONDUTORES "../ficheiros/condutores.txt"
+#define TXT_LINHAS "../ficheiros/linhas.txt"
 
 #include "Header.hpp"
 #include "Transportadora.hpp"

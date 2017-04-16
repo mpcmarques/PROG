@@ -34,6 +34,22 @@ int main(int argc, const char * argv[]) {
 
 //  MARK: GUI
 
+/**
+ * Handler do menu de gestão de linnhas
+ * @param opt Opção escolhida da gestão de linhas
+ */
+void gerirLinhasHandler(int opt){
+  switch (opt) {
+    case 1: // TODO adiciona linha
+    break;
+    case 2: // TODO remove linha
+    break;
+    case 3: //  TODO listar linhas
+    default:
+    break;
+  }
+}
+
 
 
 /**
@@ -53,8 +69,24 @@ void gerirLinhas(){
     cout << "Opção inválida!" << endl;
     return;
   }
+  // chamar handler
+  gerirLinhasHandler(opt);
+}
 
-
+/**
+ * Handler do menu de gestão de linnhas
+ * @param opt Opção escolhida da gestão de linhas
+ */
+void gerirCondutoresHandler(int opt){
+  switch (opt) {
+    case 1: // TODO adiciona condutor
+    break;
+    case 2: // TODO remove condutor
+    break;
+    case 3: //  TODO listar condutores
+    default:
+    break;
+  }
 }
 
 /**
@@ -74,6 +106,8 @@ void gerirCondutores(){
     cout << "Opção inválida!" << endl;
     return;
   }
+  //  chamar handler
+  gerirCondutoresHandler(opt);
 }
 
 /**
