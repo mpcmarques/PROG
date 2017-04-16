@@ -3,9 +3,13 @@
 
 istream& operator>>(istream &is, Condutor &condutor){
   string str;
+  string nome;
+  string sobrenome;
 
-  is >> condutor.uid >> str >> condutor.nome >> str >> str >> condutor.turno;
+  is >> condutor.uid >> str >> nome >> sobrenome >> str >> condutor.turno;
   is >> str >> condutor.horasPorSemana >> str >> condutor.descanso;
+
+  condutor.nome = nome + " " + sobrenome;
 
   return is;
 }
