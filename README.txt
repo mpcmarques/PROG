@@ -1,12 +1,8 @@
-[![BCH compliance](https://bettercodehub.com/edge/badge/mpcmarques/prog)](https://bettercodehub.com/)
-
-# prog 2017
-
 Desenvolvido por Mateus Pedroza.
 Para o cumprimento do trabalho foi implementado classes, foi realizado todos os objetivos, porém ficou faltando a opção de editar linha e condutor, somente com opção de adicinar e remover.
 
-Funções documentadas da parte gui:
 
+//  Documentação das funções responsáveis pela interação com o utilizador através do console (GUI):
 /**
 * Handler do menu principal
 * @param opt Opção do menu escolhida
