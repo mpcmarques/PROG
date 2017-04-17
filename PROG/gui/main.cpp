@@ -5,9 +5,7 @@
 //  Created by Mateus Pedroza on 14/04/17.
 //  Copyright © 2017 Mateus Pedroza. All rights reserved.
 //
-#include "../logic/FileService.hpp"
-#include <iomanip>
-#include "Time.hpp"
+#include "main.hpp"
 
 using namespace std;
 
@@ -37,7 +35,6 @@ int main(int argc, const char * argv[]) {
 
 //  MARK: GUI
 
-
 void displayLinha(Linha linha){
   // salvar formatação default
   ios init(NULL);
@@ -55,6 +52,9 @@ void displayLinha(Linha linha){
   cout.copyfmt(init);
 }
 
+/**
+ * Lista as listas disponíveis no sistema
+ */
 void listarLinhasDisponiveis(){
   std::vector<Linha> linhas = transportadora.getLinhas();
   int count = 1;
@@ -64,9 +64,6 @@ void listarLinhasDisponiveis(){
   }
 }
 
-/**
-* Mostra opções de remoção de linha.
-*/
 void removerLinha(){
   unsigned int opt;
   cout << " - Remover Linha - " << endl;
@@ -84,9 +81,6 @@ void removerLinha(){
   cout << "Linha removida com sucesso!" << endl;
 }
 
-/**
-* Mostra as opções de adição de uma linha
-*/
 void adicionarLinha(){
   vector<Paragem> newParagens;
   vector<int> newTempos;
@@ -143,10 +137,6 @@ void adicionarLinha(){
   cout << "Linha adicionada com sucesso!" << endl;
 }
 
-/**
-* Handler do menu de gestão de linnhas
-* @param opt Opção escolhida da gestão de linhas
-*/
 void gerirLinhasHandler(int opt){
   switch (opt) {
     case 1: adicionarLinha();
@@ -162,9 +152,6 @@ void gerirLinhasHandler(int opt){
   }
 }
 
-/**
-* Apresentao menu de gestão de linhas
-*/
 void gerirLinhas(){
   int opt;
 
@@ -199,9 +186,6 @@ void displayCondutor(Condutor condutor){
   cout.copyfmt(init);
 }
 
-/**
-* Lista condutores disponíveis
-*/
 void listarCondutoresDisponiveis(){
   cout << " - Listar condutores disponíveis - " << endl;
   std::vector<Condutor> condutores = transportadora.getCondutores();
@@ -215,9 +199,6 @@ void listarCondutoresDisponiveis(){
   }
 }
 
-/**
-* Mostra as opções de remoção de um condutor
-*/
 void removerCondutor(){
   unsigned int opt;
   cout << " - Remover condutor - " << endl;
@@ -236,9 +217,6 @@ void removerCondutor(){
   cout << "Condutor removido com sucesso!" << endl;
 }
 
-/**
-* Mostra o menu de adição de condutores
-*/
 void adicionarCondutor(){
   string nome;
   int turno, horasPorSemana, descanso;
@@ -275,10 +253,6 @@ void adicionarCondutor(){
   cout << "Condutor adicionado com sucesso!" << endl;
 }
 
-/**
-* Handler do menu de gestão de linhas
-* @param opt Opção escolhida da gestão de linhas
-*/
 void gerirCondutoresHandler(int opt){
   switch (opt) {
     case 1: adicionarCondutor();
@@ -294,9 +268,6 @@ void gerirCondutoresHandler(int opt){
   }
 }
 
-/**
-* Apresenta o menu de gestão de condutores
-*/
 void gerirCondutores(){
   int opt;
 
@@ -314,7 +285,6 @@ void gerirCondutores(){
   //  chamar handler
   gerirCondutoresHandler(opt);
 }
-
 
 void displayHorariosParagem(Time tempoInicio, Paragem paragem, Linha linha){
   //set start time
@@ -383,9 +353,6 @@ void verHorariosDeUmaLinha(){
 }
 
 
-/**
- * Gerar e visualizar de modo formatado tabelas com horários de uma paragem
- */
 void visualizarTabelaComHorarioDeUmaParagem(){
   string nome;
   int opt;
@@ -425,9 +392,6 @@ void visualizarTabelaComHorarioDeUmaParagem(){
     cout << "Paragem não encontrada" << endl;
 }
 
-/**
- * Visualizar o trabalho atribuído a um condutor.
- */
 void visualizarTrabalhoDeUmCondutor(){
   int opt;
 
@@ -443,7 +407,6 @@ void visualizarTrabalhoDeUmCondutor(){
   displayCondutor(condutor);
 }
 
-//  TODO Inquirir sobe quais as linhas que incluem determinada paragem.
 void inquirirLinhasDeDeterminadaParagem(){
   string paragem;
   cout << " - Inquerir linhas de uma paragem - " << endl;
@@ -466,10 +429,6 @@ void inquirirLinhasDeDeterminadaParagem(){
 //  TODO Calcular e visualizar um percurso e tempos entre duas quaisquer paragens indicadas pelo utilizador.
 //  TODO  Calcular, para uma linha especificada, quantos condutores são necessários (assumindo turnos com um número de horas fixo).
 
-/**
-* Handler do menu principal
-* @param opt Opção do menu escolhida
-*/
 void menuOptHandler(int opt){
   switch (opt) {
     case 1: gerirLinhas();
@@ -490,9 +449,6 @@ void menuOptHandler(int opt){
   }
 }
 
-/**
-* Mostra menu principal
-*/
 void showMenu(){
   int opt;
 
