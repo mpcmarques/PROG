@@ -170,9 +170,24 @@ void gerirLinhas(){
 void listarCondutoresDisponiveis(){
   std::vector<Condutor> condutores = transportadora.getCondutores();
   int count = 0;
+
+  // salvar formatação default
+  ios init(NULL);
+  init.copyfmt(cout);
+
   for (Condutor condutor: condutores) {
-    cout << count++ << " ~>" << " " << condutor.getUid() << " " << condutor.getNome() << endl;
+    // ->
+    cout << " " << count++ << " ~>" << " ";
+    //  nome format
+    cout << left <<setw(20) << condutor.getNome() << " ";
+    //  turno format
+    cout <<  "Turno: " << setw(2)  <<  condutor.getTurno() << "hrs" << setw(5) << setfill(' ') << " ";
+    cout <<  "Semana: " << setw(2) << condutor.getHorasPorSemana() << "hrs" << setw(5) << setfill(' ') << " ";
+    cout << "Descanso: " <<  setw(2) << condutor.getDescanso() << "hrs" <<endl;
   }
+
+  // restaurar formatação default
+  cout.copyfmt(init);
 }
 
 /**
@@ -275,6 +290,38 @@ void gerirCondutores(){
   gerirCondutoresHandler(opt);
 }
 
+
+void displayHorariosParagem(Time tempoInicio, Paragem paragem, Linha linha){
+  //set start time
+  Time tempo = tempoInicio;
+
+  // salvar formatação default
+  ios init(NULL);
+  init.copyfmt(cout);
+
+  //print paragem
+  cout << setw(3) << setfill(' ') << " ";
+  cout << setw(10) << setfill(' ') << left << paragem.getNome() << endl;
+
+  int count = 0;
+  while (tempo.getHoras() < 22) {
+    cout << setw(3) << setfill(' ') << " ";
+    cout << setw(2) << setfill('0') << right << tempo.getHoras() << ":";
+    cout << setw(2) << setfill('0') << tempo.getMinutos();
+    cout << setw(3) << setfill(' ') << " ";
+    tempo.addMinutos(linha.getFreq());
+
+    count++;
+
+    if (count == 6) {
+      cout << endl;
+      count = 0;
+    }
+  }
+  // restaurar formatação default
+  cout.copyfmt(init);
+}
+
 void verHorariosDeUmaLinha(){
   int opt;
 
@@ -286,6 +333,10 @@ void verHorariosDeUmaLinha(){
     cout << "Erro: opção inválida" << endl;
     return;
   }
+  // salvar formatação default
+  ios init(NULL);
+  init.copyfmt(cout);
+
   //  print nome da linha
   Linha linha = transportadora.getLinhas()[opt-1];
   cout << setw(30) << setfill(' ') << "Linha: " << linha.getUid() << endl;
@@ -296,33 +347,58 @@ void verHorariosDeUmaLinha(){
   Time tempoInicio = Time(8,0);
 
   for (int i = 0; i < (int)linha.getParagens().size(); i++) {
-    //set start time
-    Time tempo = tempoInicio;
-
-    //print paragem
     Paragem paragem = linha.getParagens()[i];
-    cout << setw(3) << setfill(' ') << " ";
-    cout << setw(10) << setfill(' ') << left << paragem.getNome() << endl;
+    //  mostrar horarios da paragem
+    displayHorariosParagem(tempoInicio, paragem, linha);
 
-    int count = 0;
-    while (tempo.getHoras() < 22) {
-      cout << setw(3) << setfill(' ') << " ";
-      cout << setw(2) << setfill('0') << right << tempo.getHoras() << ":";
-      cout << setw(2) << setfill('0') << tempo.getMinutos();
-      cout << setw(3) << setfill(' ') << " ";
-      tempo.addMinutos(linha.getFreq());
-
-      count++;
-
-      if (count == 6) {
-        cout << endl;
-        count = 0;
-      }
-    }
     tempoInicio.addMinutos(linha.getTempos()[i]);
     cout << endl;
     cout << endl;
   }
+  // restaurar formatação default
+  cout.copyfmt(init);
+}
+
+
+/**
+ * Gerar e visualizar de modo formatado tabelas com horários de uma paragem
+ */
+void visualizarTabelaComHorarioDeUmaParagem(){
+  string nome;
+  int opt;
+  cout << endl << "Qual a linha que deseja consultar o horário da paragem?" << endl;
+  listarLinhasDisponiveis();
+
+  if (!(cin >> opt) || opt < 0 || opt > (int)transportadora.getLinhas().size()){
+    cout << "Erro: linha inválida" << endl;
+  }
+  Linha linha = transportadora.getLinhas()[opt-1];
+
+  cout << "Digite o nome da paragem que deseja consultar" << endl;
+  cin.ignore();
+  if (!(getline(cin, nome))) {
+    cout << "Erro: valor digitado não é permitido" << endl;
+    return;
+  }
+
+  int uid = 0;
+  bool found = false;
+  for (Paragem paragem: linha.getParagens()) {
+    if (paragem.getNome() == nome) {
+      cout << endl;
+      //  mostrar horarios da paragem
+      Time tempoInicio = Time(8,0);
+      tempoInicio.addMinutos(linha.getTempos()[uid]);
+      displayHorariosParagem(tempoInicio, paragem, linha);
+      
+      found = true;
+      cout << endl;
+    } else {
+      uid++;
+    }
+  }
+  if(found == false)
+    cout << "Paragem não encontrada" << endl;
 }
 
 /**
@@ -334,6 +410,8 @@ void menuOptHandler(int opt){
     case 1: gerirLinhas();
     break;
     case 2: gerirCondutores();
+    break;
+    case 3: visualizarTabelaComHorarioDeUmaParagem();
     break;
     case 4: verHorariosDeUmaLinha();
     break;
@@ -355,10 +433,10 @@ void showMenu(){
   cout << "2 -> Gerir condutores" << endl;
   cout << "3 -> Gerar e visualizar horários de uma paragem" << endl;
   cout << "4 -> Gerar e visualizar horário de uma linha" << endl;
-  cout << "4 -> Visualizar trabalho de um condutor" << endl;
-  cout << "5 -> Inquirir sobre quais linhas que incluem determinada paragem" << endl;
-  cout << "6 -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
-  cout << "7 -> Calcular para uma linha quantos condutores são necessários" << endl;
+  cout << "5 -> Visualizar trabalho de um condutor" << endl;
+  cout << "6 -> Inquirir sobre quais linhas que incluem determinada paragem" << endl;
+  cout << "7 -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
+  cout << "8 -> Calcular para uma linha quantos condutores são necessários" << endl;
   cout << "0 -> Sair" << endl;
 
   //  verificar input

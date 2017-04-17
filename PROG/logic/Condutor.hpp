@@ -22,11 +22,14 @@ class Condutor {
 
 public:
   Condutor(){}; //  to be used by file I/O
-  
+
   Condutor(int uid, std::string nome, int turno, int horasPorSemana, int descanso);
 
-  std::string getNome(){ return nome;};
-  int getUid(){ return uid; };
+  std::string getNome();
+  int getUid();
+  int getTurno();
+  int getDescanso();
+  int getHorasPorSemana();
 
   friend std::istream& operator>>(std::istream &is, Condutor &condutor);
   friend std::ostream& operator<<(std::ostream &os, Condutor &condutor);

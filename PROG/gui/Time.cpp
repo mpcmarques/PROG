@@ -31,5 +31,5 @@ const int Time::getHoras(){
   return this->horas;
 }
 const int Time::getMinutos(){
-  return this->horas;
+  return this->minutos;
 }
