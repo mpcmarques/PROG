@@ -288,7 +288,7 @@ void verHorariosDeUmaLinha(){
   }
   //  print nome da linha
   Linha linha = transportadora.getLinhas()[opt-1];
-  cout << setw(35) << setfill(' ') << "Linha: " << linha.getUid() << endl;
+  cout << setw(30) << setfill(' ') << "Linha: " << linha.getUid() << endl;
   //  print paragem final
   Paragem paragemFinal =  linha.getParagens().back();
   cout << setw(25) << setfill(' ') << "Rumo "<< paragemFinal.getNome() << endl;
