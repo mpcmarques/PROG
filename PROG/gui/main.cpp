@@ -164,30 +164,36 @@ void gerirLinhas(){
   gerirLinhasHandler(opt);
 }
 
+void displayCondutor(Condutor condutor){
+  // salvar formatação default
+  ios init(NULL);
+  init.copyfmt(cout);
+
+  //  nome format
+  cout << left <<setw(20) << condutor.getNome() << " ";
+  //  turno format
+  cout <<  "Turno: " << setw(2)  <<  condutor.getTurno() << "hrs" << setw(5) << setfill(' ') << " ";
+  cout <<  "Semana: " << setw(2) << condutor.getHorasPorSemana() << "hrs" << setw(5) << setfill(' ') << " ";
+  cout << "Descanso: " <<  setw(2) << condutor.getDescanso() << "hrs" <<endl;
+
+  // restaurar formatação default
+  cout.copyfmt(init);
+}
+
 /**
 * Lista condutores disponíveis
 */
 void listarCondutoresDisponiveis(){
+  cout << " - Listar condutores disponíveis - " << endl;
   std::vector<Condutor> condutores = transportadora.getCondutores();
   int count = 0;
-
-  // salvar formatação default
-  ios init(NULL);
-  init.copyfmt(cout);
 
   for (Condutor condutor: condutores) {
     // ->
     cout << " " << count++ << " ~>" << " ";
     //  nome format
-    cout << left <<setw(20) << condutor.getNome() << " ";
-    //  turno format
-    cout <<  "Turno: " << setw(2)  <<  condutor.getTurno() << "hrs" << setw(5) << setfill(' ') << " ";
-    cout <<  "Semana: " << setw(2) << condutor.getHorasPorSemana() << "hrs" << setw(5) << setfill(' ') << " ";
-    cout << "Descanso: " <<  setw(2) << condutor.getDescanso() << "hrs" <<endl;
+    displayCondutor(condutor);
   }
-
-  // restaurar formatação default
-  cout.copyfmt(init);
 }
 
 /**
@@ -318,8 +324,6 @@ void displayHorariosParagem(Time tempoInicio, Paragem paragem, Linha linha){
       count = 0;
     }
   }
-  // restaurar formatação default
-  cout.copyfmt(init);
 }
 
 void verHorariosDeUmaLinha(){
@@ -388,9 +392,10 @@ void visualizarTabelaComHorarioDeUmaParagem(){
       cout << endl;
       //  mostrar horarios da paragem
       Time tempoInicio = Time(8,0);
-      tempoInicio.addMinutos(linha.getTempos()[uid]);
+      if (uid > 0) {
+        tempoInicio.addMinutos(linha.getTempos()[uid-1]);
+      }
       displayHorariosParagem(tempoInicio, paragem, linha);
-      
       found = true;
       cout << endl;
     } else {
@@ -400,6 +405,28 @@ void visualizarTabelaComHorarioDeUmaParagem(){
   if(found == false)
     cout << "Paragem não encontrada" << endl;
 }
+
+/**
+ * Visualizar o trabalho atribuído a um condutor.
+ */
+void visualizarTrabalhoDeUmCondutor(){
+  int opt;
+
+  cout << " - Visualizar trabalho de um condutor - " << endl;
+
+  listarCondutoresDisponiveis();
+
+  if (!(cin >> opt) || opt > (int)transportadora.getCondutores().size()) {
+    cout << "Erro: opção inválida!" << endl;
+  }
+
+  Condutor condutor = transportadora.getCondutores()[opt];
+  displayCondutor(condutor);
+}
+
+//  TODO Inquirir sobe quais as linhas que incluem determinada paragem.
+//  TODO Calcular e visualizar um percurso e tempos entre duas quaisquer paragens indicadas pelo utilizador.
+//  TODO  Calcular, para uma linha especificada, quantos condutores são necessários (assumindo turnos com um número de horas fixo).
 
 /**
 * Handler do menu principal
@@ -414,6 +441,10 @@ void menuOptHandler(int opt){
     case 3: visualizarTabelaComHorarioDeUmaParagem();
     break;
     case 4: verHorariosDeUmaLinha();
+    break;
+    case 5: visualizarTrabalhoDeUmCondutor();
+    break;
+    case 6: listarCondutoresDisponiveis();
     break;
     default: break;
   }
@@ -434,9 +465,10 @@ void showMenu(){
   cout << "3 -> Gerar e visualizar horários de uma paragem" << endl;
   cout << "4 -> Gerar e visualizar horário de uma linha" << endl;
   cout << "5 -> Visualizar trabalho de um condutor" << endl;
-  cout << "6 -> Inquirir sobre quais linhas que incluem determinada paragem" << endl;
-  cout << "7 -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
-  cout << "8 -> Calcular para uma linha quantos condutores são necessários" << endl;
+  cout << "6 -> Listar condutores disponíveis" << endl;
+  cout << "7 -> Inquirir sobre quais linhas que incluem determinada paragem" << endl;
+  cout << "8 -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
+  cout << "9 -> Calcular para uma linha quantos condutores são necessários" << endl;
   cout << "0 -> Sair" << endl;
 
   //  verificar input
