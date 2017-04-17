@@ -5,6 +5,8 @@
 #include <iomanip>
 #include "Time.hpp"
 
+void displayParagem(Paragem paragem);
+
 /**
  * Mostra as informações de uma linha de maneira formatada
  * @param linha Linha a ser mostrada

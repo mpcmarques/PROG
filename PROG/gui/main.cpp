@@ -35,6 +35,17 @@ int main(int argc, const char * argv[]) {
 
 //  MARK: GUI
 
+void displayParagem(Paragem paragem){
+  // salvar formatação default
+  ios init(NULL);
+  init.copyfmt(cout);
+
+  cout << setw(25) << paragem.getNome() << setw(5) << setfill(' ') << " ";
+
+  // restaurar formatação default
+  cout.copyfmt(init);
+}
+
 void displayLinha(Linha linha){
   // salvar formatação default
   ios init(NULL);
@@ -44,10 +55,10 @@ void displayLinha(Linha linha){
   cout << "Frequência: " << setw(10) << linha.getFreq() << endl;
   cout << "Paragens: ";
   for (Paragem paragem: linha.getParagens()) {
-    cout << setw(25) << paragem.getNome() << setw(5) << setfill(' ') << " ";
+    displayParagem(paragem);
   }
 
-  cout << endl << endl;
+  cout << endl;
   // restaurar formatação default
   cout.copyfmt(init);
 }
@@ -426,8 +437,72 @@ void inquirirLinhasDeDeterminadaParagem(){
     }
   }
 }
+
 //  TODO Calcular e visualizar um percurso e tempos entre duas quaisquer paragens indicadas pelo utilizador.
-//  TODO  Calcular, para uma linha especificada, quantos condutores são necessários (assumindo turnos com um número de horas fixo).
+void calcularMostrarPercursoEntreParagens(){
+  string opt1, opt2;
+  int linhaopt;
+
+  cout << " - Calcular percurso entre duas paragens - " << endl;
+  cout << "Linhas:" << endl;
+  listarLinhasDisponiveis();
+  cout << "Escolha a linha para a calcular a distância: " << endl;
+  if (!(cin >> linhaopt) || linhaopt < 0 || linhaopt > (int)transportadora.getLinhas().size()) {
+    cout << "Erro: escolha inválida" << endl;
+    return;
+  }
+  cout << endl;
+  Linha linha = transportadora.getLinhas()[linhaopt-1];
+  //  mostrar linha
+  displayLinha(linha);
+
+  cin.ignore();
+  cout << "Digite o nome da primeira paragem" << endl;
+  getline(cin, opt1);
+  cout << "Digite o nome da segunda paragem" << endl;
+  getline(cin, opt2);
+  cout << endl;
+
+  int posPrimeiraParagem = -1;
+  int posSegundaParagem = -1;
+  for (int i = 0; i < (int)linha.getParagens().size(); i++) {
+    Paragem paragem = linha.getParagens()[i];
+
+    if (paragem.getNome() == opt1) {
+      posPrimeiraParagem = i;
+    }
+    if (paragem.getNome() == opt2) {
+      posSegundaParagem = i;
+    }
+  }
+
+  if (posPrimeiraParagem == posSegundaParagem) {
+    cout << "As duas paragens coincidem!" << endl;
+  }
+  else if (posPrimeiraParagem < posSegundaParagem) {
+    int tempoTotal = 0;
+    cout << "Percurso: " << endl;
+    for (int j = posPrimeiraParagem; j <= posSegundaParagem; j++) {
+      Paragem paragem = linha.getParagens()[j];
+      displayParagem(paragem);
+      tempoTotal += linha.getTempos()[j-1];
+    }
+    cout << endl;
+    cout << "Tempo total: " << tempoTotal << " minutos";
+  }
+  else if (posPrimeiraParagem > posSegundaParagem){
+    int tempoTotal = 0;
+    cout << "Percurso: " << endl;
+    for (int j = posPrimeiraParagem; j >= posSegundaParagem; j--) {
+      Paragem paragem = linha.getParagens()[j];
+      displayParagem(paragem);
+      tempoTotal += linha.getTempos()[j-1];
+    }
+    cout << endl;
+    cout << "Tempo total: " << tempoTotal << " minutos";
+  }
+  cout << endl;
+}
 
 void menuOptHandler(int opt){
   switch (opt) {
@@ -444,6 +519,8 @@ void menuOptHandler(int opt){
     case 6: listarCondutoresDisponiveis();
     break;
     case 7: inquirirLinhasDeDeterminadaParagem();
+    break;
+    case 8: calcularMostrarPercursoEntreParagens();
     break;
     default: break;
   }
@@ -468,7 +545,7 @@ void showMenu(){
   cout << "0 -> Sair" << endl;
 
   //  verificar input
-  if (!(cin >> opt) || opt > 7 || opt < 0) {
+  if (!(cin >> opt) || opt > 8 || opt < 0) {
     cout << "Opção inválida!" << endl;
     return;
   }
@@ -476,9 +553,9 @@ void showMenu(){
   if (opt != 0) {
     menuOptHandler(opt);
     //  chama menu recursivamente
-    cin.clear();
+    string line;
     cout << "Tecle enter para voltar ao menu principal.." << endl;
-    cin.ignore();
+    getline(cin, line);
     showMenu();
   }
 }
