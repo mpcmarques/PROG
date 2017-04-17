@@ -10,6 +10,14 @@ vector<Paragem> stringToParagens(std::vector<string> stringParagens){
   return newParagens;
 }
 
+const int Linha::getTempoPercurso(){
+  int valorFinal = 0;
+  for(int valor: this->getTempos()){
+    valorFinal += valor;
+  }
+  return valorFinal;
+}
+
 const int Linha::getUid(){
   return this->uid;
 }

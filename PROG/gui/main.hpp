@@ -5,7 +5,16 @@
 #include <iomanip>
 #include "Time.hpp"
 
+/**
+ * Mostra a paragem no console de modo formatado, lembrar de colocar um endl depois, pois ela é impressa na mesma linha.
+ * @param paragem Paragem a ser mostrada
+ */
 void displayParagem(Paragem paragem);
+
+/**
+ * Calcular e visualizar um percurso e tempos entre duas quaisquer paragens indicadas pelo utilizador
+ */
+void calcularMostrarPercursoEntreParagens();
 
 /**
  * Mostra as informações de uma linha de maneira formatada

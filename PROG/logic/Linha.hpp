@@ -31,7 +31,7 @@ public:
   const std::vector<Paragem> getParagens();
   const std::vector<int> getTempos();
   const int getFreq();
-
+  const int getTempoPercurso();
   /**
    * Operator function
    */

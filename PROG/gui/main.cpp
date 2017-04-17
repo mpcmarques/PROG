@@ -438,15 +438,17 @@ void inquirirLinhasDeDeterminadaParagem(){
   }
 }
 
-//  TODO Calcular e visualizar um percurso e tempos entre duas quaisquer paragens indicadas pelo utilizador.
 void calcularMostrarPercursoEntreParagens(){
   string opt1, opt2;
   int linhaopt;
 
   cout << " - Calcular percurso entre duas paragens - " << endl;
   cout << "Linhas:" << endl;
+  //  mostrar linhas
   listarLinhasDisponiveis();
+  //  pedir para escolher linha
   cout << "Escolha a linha para a calcular a distância: " << endl;
+  // verificar escolha
   if (!(cin >> linhaopt) || linhaopt < 0 || linhaopt > (int)transportadora.getLinhas().size()) {
     cout << "Erro: escolha inválida" << endl;
     return;
@@ -504,6 +506,51 @@ void calcularMostrarPercursoEntreParagens(){
   cout << endl;
 }
 
+//  TODO Calcular para uma linha quantos condutores são necessários"
+void calcularCondutoresNecessariosParaLinha(){
+  int linhaopt;
+
+  cout << endl << " - Condutores necessários por linha - " << endl;
+  cout << "Linhas: " << endl << endl;
+  //  mostrar linhas
+  listarLinhasDisponiveis();
+  cout << endl;
+
+  //  pedir para escolher linha
+  cout << "Escolha a linha para a calcular a distância: " << endl;
+  // verificar escolha
+  if (!(cin >> linhaopt) || linhaopt < 0 || linhaopt > (int)transportadora.getLinhas().size()) {
+    cout << "Erro: escolha inválida" << endl;
+    return;
+  }
+  cout << endl;
+  Linha linha = transportadora.getLinhas()[linhaopt-1];
+
+  //  mostrar linha
+  cout << "Linha: " << endl;
+  displayLinha(linha);
+
+  int totalHoras = linha.getTempoPercurso();
+  int turno;
+
+  cout << endl << "Quantas horas tem o turno?" << endl;
+
+  if (!(cin >> turno) || turno <= 0){
+    cout << "Erro: valor inválido! " << endl;
+  }
+
+  int horasDeFuncionamentoDasLinhas = 22 - 8;
+  int resultado = horasDeFuncionamentoDasLinhas / turno;
+
+  if (resultado <= 1) {
+    cout << "É necessário apenas um condutor!" << endl;
+  } else {
+    cout << "São necessários " << resultado << " condutores" << endl;
+
+  }
+  cout << endl;
+}
+
 void menuOptHandler(int opt){
   switch (opt) {
     case 1: gerirLinhas();
@@ -522,15 +569,24 @@ void menuOptHandler(int opt){
     break;
     case 8: calcularMostrarPercursoEntreParagens();
     break;
+    case 9: calcularCondutoresNecessariosParaLinha();
+    break;
     default: break;
   }
 }
 
 void showMenu(){
   int opt;
+  // salvar formatação default
+  ios init(NULL);
+  init.copyfmt(cout);
 
-  cout << endl <<  "## MENU PRINCIPAL ##" << endl;
-  cout << "O que deseja fazer?" << endl;
+  cout << endl << setw(40) << setfill('#') << " MENU PRINCIPAL "  << setw(30) << setfill('#') << " "<< endl;
+
+  // restaurar formatação default
+  cout.copyfmt(init);
+
+  cout << "O que deseja fazer?"  << endl;
 
   //  opcoes
   cout << "1 -> Gerir linhas" << endl;
@@ -545,7 +601,7 @@ void showMenu(){
   cout << "0 -> Sair" << endl;
 
   //  verificar input
-  if (!(cin >> opt) || opt > 8 || opt < 0) {
+  if (!(cin >> opt) || opt > 9 || opt < 0) {
     cout << "Opção inválida!" << endl;
     return;
   }
@@ -555,6 +611,7 @@ void showMenu(){
     //  chama menu recursivamente
     string line;
     cout << "Tecle enter para voltar ao menu principal.." << endl;
+    cin.ignore();
     getline(cin, line);
     showMenu();
   }
