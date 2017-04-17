@@ -10,11 +10,24 @@ vector<Paragem> stringToParagens(std::vector<string> stringParagens){
   return newParagens;
 }
 
+const int Linha::getUid(){
+  return this->uid;
+}
+
+const std::vector<Paragem> Linha::getParagens(){
+  return this->paragens;
+}
+
+
 Linha::Linha(int uid, int freq, std::vector<Paragem> paragens, std::vector<int> tempos){
   this->uid = uid;
   this->freq = freq;
   this->paragens = paragens;
   this->tempos = tempos;
+}
+
+const int Linha::getFreq(){
+  return this->freq;
 }
 
 vector<int> stringsToInt(vector<string> newTemposString){
@@ -23,6 +36,10 @@ vector<int> stringsToInt(vector<string> newTemposString){
     newVector.push_back(stoi(tempoString));
   }
   return newVector;
+}
+
+const std::vector<int> Linha::getTempos(){
+  return this->tempos;
 }
 
 istream& operator>> (istream &is, Linha &linha){

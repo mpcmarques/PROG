@@ -5,7 +5,7 @@ LOGICPATH=../logic/
 
 LOGICSOURCES=$(LOGICPATH)FileService.cpp $(LOGICPATH)Linha.cpp $(LOGICPATH)Transportadora.cpp $(LOGICPATH)Paragem.cpp $(LOGICPATH)Condutor.cpp $(LOGICPATH)Header.cpp
 
-SOURCES=main.cpp $(LOGICSOURCES)
+SOURCES=main.cpp Time.cpp $(LOGICSOURCES)
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=prog.out

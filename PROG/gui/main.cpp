@@ -6,6 +6,8 @@
 //  Copyright © 2017 Mateus Pedroza. All rights reserved.
 //
 #include "../logic/FileService.hpp"
+#include <iomanip>
+#include "Time.hpp"
 
 using namespace std;
 
@@ -44,8 +46,8 @@ void listarLinhasDisponiveis(){
 }
 
 /**
- * Mostra opções de remoção de linha.
- */
+* Mostra opções de remoção de linha.
+*/
 void removerLinha(){
   unsigned int opt;
   cout << " - Remover Linha - " << endl;
@@ -64,8 +66,8 @@ void removerLinha(){
 }
 
 /**
- * Mostra as opções de adição de uma linha
- */
+* Mostra as opções de adição de uma linha
+*/
 void adicionarLinha(){
   vector<Paragem> newParagens;
   vector<int> newTempos;
@@ -123,9 +125,9 @@ void adicionarLinha(){
 }
 
 /**
- * Handler do menu de gestão de linnhas
- * @param opt Opção escolhida da gestão de linhas
- */
+* Handler do menu de gestão de linnhas
+* @param opt Opção escolhida da gestão de linhas
+*/
 void gerirLinhasHandler(int opt){
   switch (opt) {
     case 1: adicionarLinha();
@@ -163,8 +165,8 @@ void gerirLinhas(){
 }
 
 /**
- * Lista condutores disponíveis
- */
+* Lista condutores disponíveis
+*/
 void listarCondutoresDisponiveis(){
   std::vector<Condutor> condutores = transportadora.getCondutores();
   int count = 0;
@@ -174,8 +176,8 @@ void listarCondutoresDisponiveis(){
 }
 
 /**
- * Mostra as opções de remoção de um condutor
- */
+* Mostra as opções de remoção de um condutor
+*/
 void removerCondutor(){
   unsigned int opt;
   cout << " - Remover condutor - " << endl;
@@ -195,8 +197,8 @@ void removerCondutor(){
 }
 
 /**
- * Mostra o menu de adição de condutores
- */
+* Mostra o menu de adição de condutores
+*/
 void adicionarCondutor(){
   string nome;
   int turno, horasPorSemana, descanso;
@@ -234,9 +236,9 @@ void adicionarCondutor(){
 }
 
 /**
- * Handler do menu de gestão de linhas
- * @param opt Opção escolhida da gestão de linhas
- */
+* Handler do menu de gestão de linhas
+* @param opt Opção escolhida da gestão de linhas
+*/
 void gerirCondutoresHandler(int opt){
   switch (opt) {
     case 1: adicionarCondutor();
@@ -273,23 +275,75 @@ void gerirCondutores(){
   gerirCondutoresHandler(opt);
 }
 
+void verHorariosDeUmaLinha(){
+  int opt;
+
+  cout << " - Visualizar horários de uma linha - " << endl;
+  cout << "Escolha a linha:" << endl;
+  listarLinhasDisponiveis();
+
+  if (!(cin >> opt) || opt < 0 || opt > (int)transportadora.getLinhas().size()) {
+    cout << "Erro: opção inválida" << endl;
+    return;
+  }
+  //  print nome da linha
+  Linha linha = transportadora.getLinhas()[opt-1];
+  cout << setw(35) << setfill(' ') << "Linha: " << linha.getUid() << endl;
+  //  print paragem final
+  Paragem paragemFinal =  linha.getParagens().back();
+  cout << setw(25) << setfill(' ') << "Rumo "<< paragemFinal.getNome() << endl;
+  //linha de começo
+  Time tempoInicio = Time(8,0);
+
+  for (int i = 0; i < (int)linha.getParagens().size(); i++) {
+    //set start time
+    Time tempo = tempoInicio;
+
+    //print paragem
+    Paragem paragem = linha.getParagens()[i];
+    cout << setw(3) << setfill(' ') << " ";
+    cout << setw(10) << setfill(' ') << left << paragem.getNome() << endl;
+
+    int count = 0;
+    while (tempo.getHoras() < 22) {
+      cout << setw(3) << setfill(' ') << " ";
+      cout << setw(2) << setfill('0') << right << tempo.getHoras() << ":";
+      cout << setw(2) << setfill('0') << tempo.getMinutos();
+      cout << setw(3) << setfill(' ') << " ";
+      tempo.addMinutos(linha.getFreq());
+
+      count++;
+
+      if (count == 6) {
+        cout << endl;
+        count = 0;
+      }
+    }
+    tempoInicio.addMinutos(linha.getTempos()[i]);
+    cout << endl;
+    cout << endl;
+  }
+}
+
 /**
- * Handler do menu principal
- * @param opt Opção do menu escolhida
- */
+* Handler do menu principal
+* @param opt Opção do menu escolhida
+*/
 void menuOptHandler(int opt){
   switch (opt) {
     case 1: gerirLinhas();
     break;
     case 2: gerirCondutores();
     break;
+    case 4: verHorariosDeUmaLinha();
+    break;
     default: break;
   }
 }
 
 /**
- * Mostra menu principal
- */
+* Mostra menu principal
+*/
 void showMenu(){
   int opt;
 
@@ -300,6 +354,7 @@ void showMenu(){
   cout << "1 -> Gerir linhas" << endl;
   cout << "2 -> Gerir condutores" << endl;
   cout << "3 -> Gerar e visualizar horários de uma paragem" << endl;
+  cout << "4 -> Gerar e visualizar horário de uma linha" << endl;
   cout << "4 -> Visualizar trabalho de um condutor" << endl;
   cout << "5 -> Inquirir sobre quais linhas que incluem determinada paragem" << endl;
   cout << "6 -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;

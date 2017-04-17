@@ -27,6 +27,11 @@ public:
   Linha(){};
   Linha(int uid, int freq, std::vector<Paragem> paragens, std::vector<int> tempos);
 
+  const int getUid();
+  const std::vector<Paragem> getParagens();
+  const std::vector<int> getTempos();
+  const int getFreq();
+
   /**
    * Operator function
    */
