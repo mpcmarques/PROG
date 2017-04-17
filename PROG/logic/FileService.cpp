@@ -7,6 +7,7 @@
 //
 
 #include "FileService.hpp"
+#define MAX_TIMEOUT 1000
 
 void FileService::saveData(Transportadora transportadora){
   //  salvar condutores
@@ -37,6 +38,7 @@ vector<Condutor> FileService::getCondutores(){
   ficheiroCondutores.open(TXT_CONDUTORES);
 
   //  ver se ficheiro esta aberto
+  int timeout = 0;
   if (ficheiroCondutores.is_open()) {
     // loop de linhas do ficheiro
     while(!ficheiroCondutores.eof()){
@@ -44,6 +46,12 @@ vector<Condutor> FileService::getCondutores(){
 
       if (ficheiroCondutores >> condutor)
         newCondutores.push_back(condutor);
+
+      timeout++;
+      if (timeout == MAX_TIMEOUT) {
+        cout << "Erro: timout lendo ficheiro de condutores" << endl;
+        exit(1);
+      }
     }
   }
 
@@ -61,6 +69,7 @@ vector<Linha> FileService::getLinhas(){
   ficheiroLinhas.open(TXT_LINHAS);
 
   //  ver se ficheiro esta aberto
+  int timeout = 0;
   if (ficheiroLinhas.is_open()) {
     // loop de linhas do ficheiro
     while (!ficheiroLinhas.eof()) {
@@ -69,6 +78,12 @@ vector<Linha> FileService::getLinhas(){
 
       if(ficheiroLinhas >> linha)
         newLinhas.push_back(linha);
+
+      timeout++;
+        if (timeout == MAX_TIMEOUT) {
+          cout << "Erro: timout lendo ficheiro de linhas" << endl;
+          exit(1);
+        }
     }
   }
   //  retornar as linhas adquiridas

@@ -233,10 +233,10 @@ void adicionarCondutor(){
   int turno, horasPorSemana, descanso;
 
   cout << " - Adicionar Condutor - " << endl;
-  cout << "Qual o nome do condutor?" << endl;
-  //nome
+  cout << "Qual o nome e sobrenome do condutor?" << endl;
+  //nome verificar se tem nome e sobrenome
   cin.ignore();
-  if(!(getline(cin, nome))){
+  if(!(getline(cin, nome)) || split(nome, ' ').size() == 1){
     cout << "Erro: nome inválido!" << endl;
     return;
   }
@@ -519,7 +519,7 @@ void calcularCondutoresNecessariosParaLinha(){
   //  pedir para escolher linha
   cout << "Escolha a linha para a calcular a distância: " << endl;
   // verificar escolha
-  if (!(cin >> linhaopt) || linhaopt < 0 || linhaopt > (int)transportadora.getLinhas().size()) {
+  if (!(cin >> linhaopt) || linhaopt <= 0 || linhaopt > (int)transportadora.getLinhas().size()) {
     cout << "Erro: escolha inválida" << endl;
     return;
   }
@@ -539,8 +539,8 @@ void calcularCondutoresNecessariosParaLinha(){
     cout << "Erro: valor inválido! " << endl;
   }
 
-  int horasDeFuncionamentoDasLinhas = 22 - 8;
-  int resultado = horasDeFuncionamentoDasLinhas / turno;
+  int horasLinha = 22 - 8;
+  int resultado = horasLinha / turno;
 
   if (resultado <= 1) {
     cout << "É necessário apenas um condutor!" << endl;
