@@ -27,6 +27,8 @@ public:
     void addLinha(const Linha linha);
     void addCondutor(const Condutor condutor);
 
+    vector<Linha> getLinhasComParagem(string nome);
+
     //  getters
     std::vector<Condutor> getCondutores();
     std::vector<Linha> getLinhas();

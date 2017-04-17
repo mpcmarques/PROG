@@ -37,11 +37,30 @@ int main(int argc, const char * argv[]) {
 
 //  MARK: GUI
 
+
+void displayLinha(Linha linha){
+  // salvar formatação default
+  ios init(NULL);
+  init.copyfmt(cout);
+
+  cout << "Id: " << setw(10) << left << linha.getUid() << " ";
+  cout << "Frequência: " << setw(10) << linha.getFreq() << endl;
+  cout << "Paragens: ";
+  for (Paragem paragem: linha.getParagens()) {
+    cout << setw(25) << paragem.getNome() << setw(5) << setfill(' ') << " ";
+  }
+
+  cout << endl << endl;
+  // restaurar formatação default
+  cout.copyfmt(init);
+}
+
 void listarLinhasDisponiveis(){
   std::vector<Linha> linhas = transportadora.getLinhas();
   int count = 1;
   for (Linha linha: linhas) {
-    cout << count++ << " ~>" << " " << linha << endl;
+    cout << count++ << " ~>" << " ";
+    displayLinha(linha);
   }
 }
 
@@ -425,6 +444,25 @@ void visualizarTrabalhoDeUmCondutor(){
 }
 
 //  TODO Inquirir sobe quais as linhas que incluem determinada paragem.
+void inquirirLinhasDeDeterminadaParagem(){
+  string paragem;
+  cout << " - Inquerir linhas de uma paragem - " << endl;
+  cout << "Digite o nome da paragem: " << endl;
+  cin.ignore();
+  if (!(getline(cin, paragem))){
+    cout << "Erro: paragem inválida" << endl;
+  }
+
+  vector<Linha> linhasEncontradas = transportadora.getLinhasComParagem(paragem);
+
+  if (linhasEncontradas.size() == 0) {
+    cout << "Paragem não encontrada!" << endl;
+  } else {
+    for (Linha linha: linhasEncontradas) {
+      displayLinha(linha);
+    }
+  }
+}
 //  TODO Calcular e visualizar um percurso e tempos entre duas quaisquer paragens indicadas pelo utilizador.
 //  TODO  Calcular, para uma linha especificada, quantos condutores são necessários (assumindo turnos com um número de horas fixo).
 
@@ -446,6 +484,8 @@ void menuOptHandler(int opt){
     break;
     case 6: listarCondutoresDisponiveis();
     break;
+    case 7: inquirirLinhasDeDeterminadaParagem();
+    break;
     default: break;
   }
 }
@@ -466,7 +506,7 @@ void showMenu(){
   cout << "4 -> Gerar e visualizar horário de uma linha" << endl;
   cout << "5 -> Visualizar trabalho de um condutor" << endl;
   cout << "6 -> Listar condutores disponíveis" << endl;
-  cout << "7 -> Inquirir sobre quais linhas que incluem determinada paragem" << endl;
+  cout << "7 -> Pesquisar sobre quais linhas incluem determinada paragem" << endl;
   cout << "8 -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
   cout << "9 -> Calcular para uma linha quantos condutores são necessários" << endl;
   cout << "0 -> Sair" << endl;
@@ -480,8 +520,9 @@ void showMenu(){
   if (opt != 0) {
     menuOptHandler(opt);
     //  chama menu recursivamente
+    cin.clear();
     cout << "Tecle enter para voltar ao menu principal.." << endl;
-    cin.ignore(); cin.ignore();
+    cin.ignore();
     showMenu();
   }
 }

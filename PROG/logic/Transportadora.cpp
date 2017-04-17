@@ -18,6 +18,19 @@ Transportadora::Transportadora(){
   this->condutores = vector<Condutor>();
 }
 
+vector<Linha> Transportadora::getLinhasComParagem(string nome){
+  vector<Linha> foundLinhas;
+
+  for (Linha linha: this->linhas) {
+    for(Paragem paragem: linha.getParagens()){
+      if (paragem.getNome() == nome) {
+        foundLinhas.push_back(linha);
+      }
+    }
+  }
+  return foundLinhas;
+}
+
 void Transportadora::addLinha(const Linha linha){
   this->linhas.push_back(linha);
 }
