@@ -1,4 +1,4 @@
 1 ; Antonio Manuel ; 4 ; 36 ; 2
 2 ; Joaquim Monteiro ; 8 ; 48 ; 4
-2 ; Mateus Pedroza ; 3 ; 20 ; 7
-3 ; Rafael Marques ; 5 ; 30 ; 2
+3 ; Mateus Pedroza ; 3 ; 20 ; 7
+4 ; Rafael Marques ; 5 ; 30 ; 2

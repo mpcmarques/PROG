@@ -32,6 +32,9 @@ public:
   const std::vector<int> getTempos();
   const int getFreq();
   const int getTempoPercurso();
+  const int getNumeroAutocarrosNecessarios();
+
+  
   /**
    * Operator function
    */

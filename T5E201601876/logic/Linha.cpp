@@ -10,6 +10,14 @@ vector<Paragem> stringToParagens(std::vector<string> stringParagens){
   return newParagens;
 }
 
+const int Linha::getNumeroAutocarrosNecessarios(){
+  // tempo de ida e volta = 2x tempo total
+  int tempo_ida_e_volta = getTempoPercurso() * 2;
+  // calculo do numero
+  int n = (int) ((double) tempo_ida_e_volta / getFreq() + 1.0);
+  return n;
+}
+
 const int Linha::getTempoPercurso(){
   int valorFinal = 0;
   for(int valor: this->getTempos()){
