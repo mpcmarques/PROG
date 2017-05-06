@@ -20,6 +20,7 @@ class FileService {
 public:
     vector<Linha> getLinhas();
     vector<Condutor> getCondutores();
+    Transportadora getTransportadora();
     void saveData(Transportadora transportadora);
 };
 

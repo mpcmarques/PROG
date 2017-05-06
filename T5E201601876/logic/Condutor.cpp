@@ -1,5 +1,6 @@
 #include "Condutor.hpp"
 
+Condutor::Condutor(){}
 
 Condutor::Condutor(int uid, std::string nome, int turno, int horasPorSemana, int descanso){
   this->uid = uid;

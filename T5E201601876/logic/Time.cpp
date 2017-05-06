@@ -21,9 +21,9 @@ Time::Time(int horas, int minutos){
 void Time::addMinutos(int minutos){
   this->minutos += minutos;
 
-  while (this->minutos > 60) {
+  while (this->minutos >= 60) {
     this->horas += 1;
-    this->minutos = this->minutos / 60;
+    this->minutos = this->minutos - 60;
   }
 }
 

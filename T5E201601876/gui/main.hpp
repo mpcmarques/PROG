@@ -3,7 +3,6 @@
 
 #include "../logic/FileService.hpp"
 #include <iomanip>
-#include "Time.hpp"
 
 /**
  * Mostra a paragem no console de modo formatado, lembrar de colocar um endl depois, pois ela é impressa na mesma linha.

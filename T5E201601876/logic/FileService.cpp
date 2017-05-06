@@ -9,6 +9,13 @@
 #include "FileService.hpp"
 #define MAX_TIMEOUT 1000
 
+Transportadora FileService::getTransportadora(){
+  vector<Linha> linhas = this->getLinhas();
+  vector<Condutor> condutores = this->getCondutores();
+
+  return Transportadora(linhas, condutores);
+}
+
 void FileService::saveData(Transportadora transportadora){
   //  salvar condutores
   ofstream ficheiroCondutores;

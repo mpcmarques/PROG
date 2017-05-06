@@ -16,11 +16,17 @@ using namespace std;
 class Transportadora {
     vector<Linha> linhas;
     vector<Condutor> condutores;
+    vector<Turno> turnos;
+    vector<Autocarro> autocarros;
+
+    Time TEMPO_INICIO = Time(8,0);
+    Time TEMPO_FIM = Time(22,0);
 
 public:
     Transportadora();
-    Transportadora(std::vector<Linha> linhas, std::vector<Condutor> condutores);
-
+    Transportadora(std::vector<Linha> linhas, std::vector<Condutor>);
+    void atribuirCondutorPorAutocarro();
+    void criarAutocarros();
     void removerCondutor(int opt);
     void removerLinha(int opt);
 

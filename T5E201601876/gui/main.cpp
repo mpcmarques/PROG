@@ -17,12 +17,9 @@ void showMenu();
 int main(int argc, const char * argv[]) {
         FileService fileService;
 
-        vector<Linha> linhas = fileService.getLinhas();
-        vector<Condutor> condutores = fileService.getCondutores();
+        transportadora = fileService.getTransportadora();
 
-        transportadora = Transportadora(linhas, condutores);
-
-        cout << "Foi carregado uma transportadora com " << linhas.size() << " linhas e " << condutores.size() << " condutores." << endl;
+        cout << "Foi carregado uma transportadora com " << transportadora.getLinhas().size() << " linhas e " << transportadora.getLinhas().size() << " condutores." << endl;
 
         //  mostrar menu
         showMenu();

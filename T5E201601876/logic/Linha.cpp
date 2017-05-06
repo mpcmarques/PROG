@@ -34,7 +34,6 @@ const std::vector<Paragem> Linha::getParagens(){
   return this->paragens;
 }
 
-
 Linha::Linha(int uid, int freq, std::vector<Paragem> paragens, std::vector<int> tempos){
   this->uid = uid;
   this->freq = freq;

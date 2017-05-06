@@ -18,15 +18,17 @@
  Representa uma linha
  */
 class Linha {
-    int uid;                    //  id unico
-    int freq;                   //  frequencia de circulacao
+    int uid;                         //  id unico
+    int freq;                        //  frequencia de circulacao
     std::vector<Paragem> paragens;   //  paragens que constituem
     std::vector<int> tempos;         //  tempos de viagens
 
 public:
+  // construtores
   Linha(){};
   Linha(int uid, int freq, std::vector<Paragem> paragens, std::vector<int> tempos);
 
+  // gets
   const int getUid();
   const std::vector<Paragem> getParagens();
   const std::vector<int> getTempos();
@@ -34,10 +36,7 @@ public:
   const int getTempoPercurso();
   const int getNumeroAutocarrosNecessarios();
 
-  
-  /**
-   * Operator function
-   */
+  // operator files IO
   friend std::istream& operator>> (std::istream &is, Linha &linha);
   friend std::ostream& operator<< (std::ostream &os, Linha &linha);
 };
