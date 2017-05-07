@@ -20,6 +20,11 @@ public:
   Autocarro(int linhaId, int condutorId, int ordemNaLinha);
 
   void addTurno(Turno turno);
+
+  // getters
+  const int getOrdemNaLinha();
+  const int getCondutorId();
+  const int getLinhaId();
 };
 
 

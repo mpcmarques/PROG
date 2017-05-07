@@ -8,21 +8,11 @@
 
 #include "Transportadora.hpp"
 
-void Transportadora::atribuirCondutorPorAutocarro(){
-
-  for (Condutor condutor: condutores) {
-
-
-
-  }
-}
-
 Transportadora::Transportadora(vector<Linha> linhas, vector<Condutor> condutores){
     this->linhas = linhas;
     this->condutores = condutores;
     // cria autocarros
     criarAutocarros();
-    // atribuir condutor por autocarro
 }
 
 Transportadora::Transportadora(){
@@ -31,9 +21,10 @@ Transportadora::Transportadora(){
 }
 
 void Transportadora::criarAutocarros(){
+  vector<Autocarro> autocarros;
+
   // loop linhas
   for(Linha linha: getLinhas()){
-    vector<Autocarro> autocarros;
     int ordemNaLinha = 1;
 
     // para cada autocarro necessario
@@ -63,7 +54,7 @@ void Transportadora::criarAutocarros(){
       ordemNaLinha++;
     }
   }
-  // adicionar a transportadora
+  // adicionar autocarros a transportadora
   this->autocarros = autocarros;
 }
 
