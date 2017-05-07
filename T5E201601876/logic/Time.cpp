@@ -13,6 +13,21 @@ Time::Time(){
   this->minutos = 0;
 }
 
+const int Time::getTimeMinutes(){
+  return this->getHoras()*60 + this->getMinutos();
+}
+
+const Time Time::operator-(Time &t1){
+  int minutosTotaisFinais = getTimeMinutes() - t1.getTimeMinutes();
+  if (minutos < 0 ) minutos = 0;
+  
+  // tempo a retornar
+  Time timeToReturn = Time(0, 0);
+  timeToReturn.addMinutos(minutosTotaisFinais);
+
+  return timeToReturn;
+}
+
 Time::Time(int horas, int minutos){
   this->horas = horas;
   this->minutos = minutos;

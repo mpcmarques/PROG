@@ -186,9 +186,10 @@ void displayCondutor(Condutor condutor){
         //  nome format
         cout << left <<setw(20) << condutor.getNome() << " ";
         //  turno format
-        cout <<  "Turno: " << setw(2)  <<  condutor.getTurno() << "hrs" << setw(5) << setfill(' ') << " ";
+        cout <<  "Turno máx: " << setw(2)  <<  condutor.getTurnoMax() << "hrs" << setw(5) << setfill(' ') << " ";
         cout <<  "Semana: " << setw(2) << condutor.getHorasPorSemana() << "hrs" << setw(5) << setfill(' ') << " ";
-        cout << "Descanso: " <<  setw(2) << condutor.getDescanso() << "hrs" <<endl;
+        cout << "Descanso: " <<  setw(2) << condutor.getDescanso() << "hrs" << setw(5) << setfill(' ') << " ";
+        cout << "Turnos: " <<  condutor.getTurnos().size() << endl;
 
         // restaurar formatação default
         cout.copyfmt(init);

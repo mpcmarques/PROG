@@ -17,9 +17,9 @@
 
 class Condutor {
   int uid;                      //n de identificacao unico
-  int turno;                    //n de horas por turno
-  int horasPorSemana;           //n de horas trabalhadas por semana
-  int descanso;                 //n de horas de descanso obrigatório entre os turnos
+  int turnoMax;                    //n de minutos do turno
+  int horasPorSemana;           //n de minutos trabalhados por semana
+  int descanso;                 //n de de minutos em descanso
   std::string nome;             //nome do condutor
   std::vector<Turno> turnos;    //turnos
 
@@ -28,12 +28,15 @@ public:
   Condutor();              //  to be used by file I/O
   Condutor(int uid, std::string nome, int turno, int horasPorSemana, int descanso);
 
+  void addTurno(Turno turno);
+
   // gets
   std::string getNome();
   int getUid();
-  int getTurno();
+  int getTurnoMax();
   int getDescanso();
   int getHorasPorSemana();
+  std::vector<Turno> getTurnos();
 
   // operadores file IO
   friend std::istream& operator>>(std::istream &is, Condutor &condutor);

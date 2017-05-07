@@ -14,30 +14,33 @@
 using namespace std;
 
 class Transportadora {
-    vector<Linha> linhas;
-    vector<Condutor> condutores;
-    vector<Turno> turnos;
-    vector<Autocarro> autocarros;
+private:
 
-    Time TEMPO_INICIO = Time(8,0);
-    Time TEMPO_FIM = Time(22,0);
+vector<Linha> linhas;
+vector<Condutor> condutores;
+vector<Turno> turnos;
+vector<Autocarro> autocarros;
+int TEMPO_INICIO = 8*60;
+int TEMPO_FIM = 22*60 - 1;
+
+void atribuirServicoAosCondutores();
+void criarAutocarros();
 
 public:
-    Transportadora();
-    Transportadora(std::vector<Linha> linhas, std::vector<Condutor>);
-    void atribuirCondutorPorAutocarro();
-    void criarAutocarros();
-    void removerCondutor(int opt);
-    void removerLinha(int opt);
+Transportadora();
+Transportadora(std::vector<Linha> linhas, std::vector<Condutor>);
+void removerCondutor(int opt);
+void removerLinha(int opt);
+void addLinha(const Linha linha);
+void addCondutor(const Condutor condutor);
+const vector<Turno> getTurnosNaoAtribuidos();
+vector<Linha> getLinhasComParagem(string nome);
 
-    void addLinha(const Linha linha);
-    void addCondutor(const Condutor condutor);
+//  getters
+// const Autocarro getAutocarro(int linhaId, int ordemNaLinha);
+std::vector<Condutor> getCondutores();
+std::vector<Linha> getLinhas();
 
-    vector<Linha> getLinhasComParagem(string nome);
-
-    //  getters
-    std::vector<Condutor> getCondutores();
-    std::vector<Linha> getLinhas();
 };
 
 

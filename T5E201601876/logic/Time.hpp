@@ -23,6 +23,9 @@ public:
 
     const int getHoras();
     const int getMinutos();
+    const int getTimeMinutes();
+
+    const Time operator-(Time &t1);
 };
 
 
