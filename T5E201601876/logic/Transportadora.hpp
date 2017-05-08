@@ -41,6 +41,8 @@ vector<Linha> getLinhasComParagem(string nome);
 std::vector<Condutor> getCondutores();
 std::vector<Linha> getLinhas();
 
+vector<Condutor> getCondutoresSemServicoAtribuidos();
+
 };
 
 

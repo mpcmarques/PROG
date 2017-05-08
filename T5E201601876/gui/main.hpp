@@ -118,6 +118,14 @@ void menuOptHandler(int opt);
 */
 void showMenu();
 
+/**
+ * Listar todos os períodos de condutores sem o serviço completo atribuído (que não tenham atingido o limite máximo semanal).
+  */
+void listarCondutoresSemServicoCompletoAtribuido();
 
+/**
+ * Mostra as informaçoes de um turno de maneira formatada
+ * */
+void displayTurno(Turno turno);
 
 #endif

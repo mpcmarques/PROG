@@ -52,6 +52,22 @@ const Autocarro Transportadora::getAutocarro(int linhaId, int ordemNaLinha){
         return Autocarro(0, 0, 0);
 }*/
 
+vector<Condutor> Transportadora::getCondutoresSemServicoAtribuidos(){
+        vector<Condutor> condutoresSemServico;
+
+        for (Condutor condutor: condutores) {
+                int minutosSemanaisRestantes = 60*condutor.getHorasPorSemana();
+
+                for (Turno turno: condutor.getTurnos()) {
+                        minutosSemanaisRestantes -= turno.getTempoTotalEmMinutos();
+                }
+
+                if (minutosSemanaisRestantes > 0){
+                        condutoresSemServico.push_back(condutor);
+                }
+        }
+        return condutoresSemServico;
+}
 
 void Transportadora::atribuirServicoAosCondutores(){
         vector<Turno> turnosNaoAtribuidos = getTurnosNaoAtribuidos();
@@ -116,7 +132,7 @@ void Transportadora::criarAutocarros(){
                         // tempo de inicio do turno
                         int tempoInicioSemanal = TEMPO_INICIO;
                         // criar um turno por dia da semana
-                        for (int i = 0; i < 7; i++) {
+                        for (int j = 0; j < 7; j++) {
                                 // adicionar minutos de acordo com a ordem na linha
                                 int tempoInicioTurno = tempoInicioSemanal;
                                 tempoInicioTurno += (ordemNaLinha-1) * linha.getFreq();

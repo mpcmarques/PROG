@@ -30,7 +30,18 @@ int main(int argc, const char * argv[]) {
         return 0;
 }
 
-//  MARK: GUI
+void displayTurno(Turno turno){
+    // salvar formatação default
+    ios init(NULL);
+    init.copyfmt(cout);
+
+    cout << "Linha: "<< turno.getLinhaId() << " ";
+    cout << "Numero: " << turno.getOrdemNaLinha() << " ";
+    cout << "Tempo total do turno: " << turno.getTempoTotalEmMinutos() << " minutos" << endl;
+
+    // restaurar formatação default
+    cout.copyfmt(init);
+}
 
 void displayParagem(Paragem paragem){
         // salvar formatação default
@@ -139,7 +150,7 @@ void adicionarLinha(){
                 newTempos.push_back(tempo);
         }
 
-        Linha linha = Linha(transportadora.getLinhas().size(), freq, newParagens, newTempos);
+        Linha linha = Linha((int) transportadora.getLinhas().size(), freq, newParagens, newTempos);
         transportadora.addLinha(linha);
 
         cout << "Linha adicionada com sucesso!" << endl;
@@ -152,8 +163,6 @@ void gerirLinhasHandler(int opt){
         case 2: removerLinha();
                 break;
         case 3: listarLinhasDisponiveis();
-                break;
-        case 4: // TODO editar linha
                 break;
         default:
                 break;
@@ -256,7 +265,7 @@ void adicionarCondutor(){
                 cout << "Erro: horário de descanso inválido" << endl;
         }
 
-        Condutor condutor = Condutor(transportadora.getCondutores().size(), nome, turno,  horasPorSemana, descanso);
+        Condutor condutor = Condutor((int) transportadora.getCondutores().size(), nome, turno, horasPorSemana, descanso);
 
         transportadora.addCondutor(condutor);
         cout << "Condutor adicionado com sucesso!" << endl;
@@ -397,7 +406,7 @@ void visualizarTabelaComHorarioDeUmaParagem(){
                         uid++;
                 }
         }
-        if(found == false)
+        if(!found)
                 cout << "Paragem não encontrada" << endl;
 }
 
@@ -414,6 +423,12 @@ void visualizarTrabalhoDeUmCondutor(){
 
         Condutor condutor = transportadora.getCondutores()[opt];
         displayCondutor(condutor);
+
+    // mostrar trabalhos do condutor
+    cout << "Turnos: " << endl;
+    for (Turno turno: condutor.getTurnos()) {
+        displayTurno(turno);
+    }
 }
 
 void inquirirLinhasDeDeterminadaParagem(){
@@ -504,7 +519,6 @@ void calcularMostrarPercursoEntreParagens(){
         cout << endl;
 }
 
-//  TODO Calcular para uma linha quantos condutores são necessários"
 void calcularCondutoresNecessariosParaLinha(){
         int linhaopt;
 
@@ -549,6 +563,15 @@ void calcularCondutoresNecessariosParaLinha(){
         cout << endl;
 }
 
+void listarCondutoresSemServicoCompletoAtribuido(){
+    cout << endl << " - Listar condutores sem serviço completo atribuido  -" << endl;
+
+    vector<Condutor> condutoresSemServico = transportadora.getCondutoresSemServicoAtribuidos();
+    for (Condutor condutor: condutoresSemServico) {
+        displayCondutor(condutor);
+    }
+}
+
 void menuOptHandler(int opt){
         switch (opt) {
         case 1: gerirLinhas();
@@ -567,7 +590,7 @@ void menuOptHandler(int opt){
                 break;
         case 8: calcularMostrarPercursoEntreParagens();
                 break;
-        case 9: calcularCondutoresNecessariosParaLinha();
+        case 9: listarCondutoresSemServicoCompletoAtribuido();
                 break;
         default: break;
         }
@@ -603,11 +626,10 @@ void showMenu(){
            deve indicar que não encontrou uma ligação entre as duas paragens.*/
         cout << "8 -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
         /* TODO Listar todos os períodos de autocarros sem condutor atribuído. */
-        cout << "9 -> Calcular para uma linha quantos condutores são necessários" << endl;
-        /* TODO Listar todos os períodos de condutores sem o serviço completo atribuído (que não tenham atingido o
-           limite máximo semanal).*/
+        cout << "9 -> Listar condutores em serviço completo atribuido" << endl;
         /*
-        TODO Efetuar interactivamente a atribuição de serviço a um condutor, permitindo ao utilizador ver as
+        TODO
+         Efetuar interactivamente a atribuição de serviço a um condutor, permitindo ao utilizador ver as
         disponibilidades de serviço dos autocarros, pedindo ao utilizador informação sobre um novo turno e
         verificando a consistência dessa informação com as restrições de horário do condutor e restantes
         dados existentes.
