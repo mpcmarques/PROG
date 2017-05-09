@@ -1,5 +1,32 @@
 #include "Linha.hpp"
 
+int Linha::calcularTempoTotalEntreParagens(int posPrimeiraParagem, int posSegundaParagem) {
+    int tempoTotal = 0;
+
+    if (posPrimeiraParagem == posSegundaParagem) return 0;
+
+    else if (posPrimeiraParagem < posSegundaParagem) {
+        for (int j = posPrimeiraParagem; j <= posSegundaParagem; j++) {
+            tempoTotal += getTempos()[j - 1];
+        }
+    } else if (posPrimeiraParagem > posSegundaParagem) {
+        for (int j = posPrimeiraParagem; j >= posSegundaParagem; j--) {
+            tempoTotal += getTempos()[j - 1];
+        }
+    }
+    return tempoTotal;
+}
+
+const int Linha::getPosParagem(string nome) {
+    int toRet = -1;
+    for (int i = 0; i < getParagens().size(); ++i) {
+        if (paragens[i].getNome() == nome) {
+            toRet = i;
+        }
+    }
+    return toRet;
+}
+
 vector<Paragem> stringToParagens(std::vector<string> stringParagens){
   vector<Paragem> newParagens;
   //  loop atraves das virgulas
@@ -30,7 +57,7 @@ const int Linha::getUid(){
   return this->uid;
 }
 
-const std::vector<Paragem> Linha::getParagens(){
+vector<Paragem> Linha::getParagens() const {
   return this->paragens;
 }
 
@@ -53,7 +80,7 @@ vector<int> stringsToInt(vector<string> newTemposString){
   return newVector;
 }
 
-const std::vector<int> Linha::getTempos(){
+vector<int> Linha::getTempos() const {
   return this->tempos;
 }
 

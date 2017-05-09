@@ -2,6 +2,7 @@
 #define MAIN_HPP
 
 #include "../logic/FileService.hpp"
+#include "../logic/ResultadoPercurso.h"
 #include <iomanip>
 
 /**
@@ -127,5 +128,15 @@ void listarCondutoresSemServicoCompletoAtribuido();
  * Mostra as informaçoes de um turno de maneira formatada
  * */
 void displayTurno(Turno turno);
+
+/*
+ * Mostra as informacoes de um percurso de maneira formatada
+ * */
+void displayPercurso(Percurso percurso);
+
+/**
+ * Mostra os resultados do percurso de maneira formatada
+ * */
+void displayResultadoPercurso(ResultadoPercurso percurso);
 
 #endif

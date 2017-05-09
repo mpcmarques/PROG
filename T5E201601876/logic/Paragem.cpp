@@ -4,6 +4,6 @@ Paragem::Paragem(std::string nome){
   this->nome = nome;
 }
 
-const std::string Paragem::getNome(){
+string Paragem::getNome() const {
   return this->nome;
 }

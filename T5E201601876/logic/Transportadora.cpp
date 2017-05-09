@@ -112,7 +112,6 @@ void Transportadora::atribuirServicoAosCondutores(){
                                 // condutor nao possui tempo semanal
                         }
                 }
-                cout << "Carregado " << condutor.getTurnos().size() << " turnos" << endl;
         }
 }
 

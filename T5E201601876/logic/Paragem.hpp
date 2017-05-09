@@ -19,7 +19,7 @@ class Paragem {
 public:
   Paragem(std::string nome);
 
-  const std::string getNome();
+    string getNome() const;
 
 };
 

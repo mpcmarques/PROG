@@ -23,6 +23,6 @@ set(SOURCE_FILES
         T5E201601876/logic/Transportadora.cpp
         T5E201601876/logic/Transportadora.hpp
         T5E201601876/logic/Turno.cpp
-        T5E201601876/logic/Turno.hpp)
+        T5E201601876/logic/Turno.hpp T5E201601876/logic/ResultadoPercurso.cpp T5E201601876/logic/ResultadoPercurso.h)
 
 add_executable(prog ${SOURCE_FILES})

@@ -24,21 +24,32 @@ class Linha {
     std::vector<int> tempos;         //  tempos de viagens
 
 public:
-  // construtores
-  Linha(){};
-  Linha(int uid, int freq, std::vector<Paragem> paragens, std::vector<int> tempos);
+    // construtores
+    Linha() {};
 
-  // gets
-  const int getUid();
-  const std::vector<Paragem> getParagens();
-  const std::vector<int> getTempos();
-  const int getFreq();
-  const int getTempoPercurso();
-  const int getNumeroAutocarrosNecessarios();
+    Linha(int uid, int freq, std::vector<Paragem> paragens, std::vector<int> tempos);
 
-  // operator files IO
-  friend std::istream& operator>> (std::istream &is, Linha &linha);
-  friend std::ostream& operator<< (std::ostream &os, Linha &linha);
+    const int getPosParagem(string nome);
+
+    int calcularTempoTotalEntreParagens(int posPrimeiraParagem, int posSegundaParagem);
+
+    // getters
+    const int getUid();
+
+    vector<Paragem> getParagens()const;
+
+    vector<int> getTempos()const;
+
+    const int getFreq();
+
+    const int getTempoPercurso();
+
+    const int getNumeroAutocarrosNecessarios();
+
+    // operator files IO
+    friend std::istream &operator>>(std::istream &is, Linha &linha);
+
+    friend std::ostream &operator<<(std::ostream &os, Linha &linha);
 };
 
 
