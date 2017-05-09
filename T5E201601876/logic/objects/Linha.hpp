@@ -12,7 +12,7 @@
 /* Includes */
 #include "Paragem.hpp"
 #include <vector>
-#include "Header.hpp"
+#include "../services/Utility.hpp"
 
 /**
  Representa uma linha

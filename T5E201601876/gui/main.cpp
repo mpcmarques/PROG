@@ -486,13 +486,6 @@ void displayResultadoPercurso(ResultadoPercurso resultado) {
     cout << "Tempo total: " << resultado.getTempoTotal() << " minutos" << endl;
 }
 
-
-/* TODO Calcular e visualizar um percurso e tempo de viagem entre duas quaisquer paragens indicadas pelo
-          utilizador. Deve procurar a solução: na linha que contém a paragem inicial ou; na linha que contém a
-          paragem inicial e numa das linhas que tenha paragens comuns com a “linha inicial”. Havendo mais
-          do que uma solução o programa deve apresentar todas as soluções encontradas mas por ordem
-          crescente de distância. Se não encontrar uma solução dentro das restrições indicadas, o programa
-          deve indicar que não encontrou uma ligação entre as duas paragens.*/
 void calcularMostrarPercursoEntreParagens(){
     string opt1, opt2;
     priority_queue<ResultadoPercurso, vector<ResultadoPercurso>, ResultadoCompare> resultados;
@@ -584,6 +577,11 @@ void calcularMostrarPercursoEntreParagens(){
                 }
             }
         }
+    }
+    // nao obteve resultados
+    if (resultados.empty()) {
+        cout << "Nao foi encontrado um percurso entre as paragens" << endl;
+        return;
     }
     // mostrar resultados
     while (!resultados.empty()) {

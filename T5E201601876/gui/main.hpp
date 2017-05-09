@@ -1,8 +1,8 @@
 #ifndef MAIN_HPP
 #define MAIN_HPP
 
-#include "../logic/FileService.hpp"
-#include "../logic/ResultadoPercurso.h"
+#include "../logic/services/FileService.hpp"
+#include "../logic/objects/ResultadoPercurso.h"
 #include <iomanip>
 
 /**
@@ -138,5 +138,10 @@ void displayPercurso(Percurso percurso);
  * Mostra os resultados do percurso de maneira formatada
  * */
 void displayResultadoPercurso(ResultadoPercurso percurso);
+
+/**
+ * Calcular e visualizar um percurso e tempo de viagem entre duas quaisquer paragens indicadas pelo utilizador.
+ */
+void calcularMostrarPercursoEntreParagens();
 
 #endif
