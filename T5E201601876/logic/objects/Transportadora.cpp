@@ -195,3 +195,45 @@ vector<Condutor> Transportadora::getCondutores(){
 vector<Linha> Transportadora::getLinhas(){
         return this->linhas;
 }
+
+void Transportadora::setLinhas(const vector<Linha> &linhas) {
+    Transportadora::linhas = linhas;
+}
+
+const Linha Transportadora::getLinha(int linhaId) const {
+    for (Linha linha: linhas) {
+        if (linha.getUid() == linhaId) {
+            return linha;
+        }
+    }
+    return Linha();
+}
+
+const Autocarro Transportadora::getAutocarro(int linhaId, int ordemNaLinha) const {
+    for (Autocarro autocarro : autocarros) {
+        if (autocarro.getLinhaId() == linhaId && autocarro.getOrdemNaLinha() == ordemNaLinha) {
+            return autocarro;
+        }
+    }
+    return Autocarro(0, 0, 0);
+}
+
+void Transportadora::setCondutores(const vector<Condutor> &condutores) {
+    Transportadora::condutores = condutores;
+}
+
+const vector<Turno> &Transportadora::getTurnos() const {
+    return turnos;
+}
+
+void Transportadora::setTurnos(const vector<Turno> &turnos) {
+    Transportadora::turnos = turnos;
+}
+
+const vector<Autocarro> &Transportadora::getAutocarros() const {
+    return autocarros;
+}
+
+void Transportadora::setAutocarros(const vector<Autocarro> &autocarros) {
+    Transportadora::autocarros = autocarros;
+}

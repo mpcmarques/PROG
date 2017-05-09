@@ -144,4 +144,19 @@ void displayResultadoPercurso(ResultadoPercurso percurso);
  */
 void calcularMostrarPercursoEntreParagens();
 
+/**
+ * Mostra as informacoes de um autocarro de maneira formatada
+ * */
+void displayAutocarro(Autocarro autocarro);
+
+/**
+ *  Pede para o utilizador escolher um autocarro para ser mostrado as informacoes
+ */
+void visualizarInformacaoAutocarro();
+
+/**
+ * Listar todos os períodos de autocarros sem condutor atribuído
+ */
+void listarTurnosSemCondutor();
+
 #endif

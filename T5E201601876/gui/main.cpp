@@ -13,7 +13,6 @@ using namespace std;
 //  mantem uma só instância da transportadora
 static Transportadora transportadora;
 
-void showMenu();
 
 int main(int argc, const char * argv[]) {
     FileService fileService;
@@ -32,6 +31,32 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
+void displayAutocarro(Autocarro autocarro) {
+    // salvar formatação default
+    ios init(NULL);
+    init.copyfmt(cout);
+
+    // mostrar informacoes do autocarro
+    cout << endl << "Linha: " << autocarro.getLinhaId() << " ";
+    cout << "Numero: " << autocarro.getOrdemNaLinha() << " ";
+    cout << "Condutor: " << autocarro.getCondutorId() << endl;
+
+    // restaurar formatação default
+    cout.copyfmt(init);
+
+    // mostrar turnos do autocarro
+    if (autocarro.getProgramacao().empty()) {
+        cout << "Nao ha turnos neste autocarro!" << endl;
+    } else {
+        cout << "Turnos: " << endl;
+
+        for (Turno turno: autocarro.getProgramacao()) {
+            cout << "\t";
+            displayTurno(turno);
+        }
+    }
+}
+
 void displayTurno(Turno turno){
     // salvar formatação default
     ios init(NULL);
@@ -39,6 +64,7 @@ void displayTurno(Turno turno){
 
     cout << "Linha: "<< turno.getLinhaId() << " ";
     cout << "Numero: " << turno.getOrdemNaLinha() << " ";
+    cout << "Id do condutor: " << turno.getCondutorId() << " ";
     cout << "Tempo total do turno: " << turno.getTempoTotalEmMinutos() << " minutos" << endl;
 
     // restaurar formatação default
@@ -73,9 +99,6 @@ void displayLinha(Linha linha){
     cout.copyfmt(init);
 }
 
-/**
- * Lista as listas disponíveis no sistema
- */
 void listarLinhasDisponiveis(){
     std::vector<Linha> linhas = transportadora.getLinhas();
     int count = 1;
@@ -372,7 +395,6 @@ void verHorariosDeUmaLinha(){
     cout.copyfmt(init);
 }
 
-
 void visualizarTabelaComHorarioDeUmaParagem(){
     string nome;
     int opt;
@@ -644,6 +666,54 @@ void listarCondutoresSemServicoCompletoAtribuido(){
     }
 }
 
+// TODO mostrar horario de inicio / fim
+void visualizarInformacaoAutocarro() {
+    int opt, numOrdem;
+
+    cout << endl << " - Visualizar informacao de um autocarro - " << endl;
+    listarLinhasDisponiveis();
+    cout << endl << "Escolha a linha do autocarro: " << endl;
+
+    if (!(cin >> opt) || opt > transportadora.getLinhas().size()) {
+        cout << "Erro: linha escolhida invalido!" << endl;
+        return;
+    }
+
+    // obter linha
+    Linha linha = transportadora.getLinhas()[opt - 1];
+
+    cout << "Digite o numero da ordem do autocarro entre 1 e " << linha.getNumeroAutocarrosNecessarios() << " : ";
+
+    if (!(cin >> numOrdem) || numOrdem > linha.getNumeroAutocarrosNecessarios()) {
+        cout << "Erro: numero do autocarro na linha invalido!" << endl;
+    }
+
+    // obter autocarro
+    Autocarro autocarro = transportadora.getAutocarro(linha.getUid(), numOrdem);
+
+    // mostrar autocarro
+    displayAutocarro(autocarro);
+}
+
+void listarTurnosSemCondutor() {
+    cout << " - Listar turnos sem condutores associados - " << endl;
+    // obter turnos sem condutores
+    vector<Turno> turnos = transportadora.getTurnosNaoAtribuidos();
+
+    // verificar se foi retornado algum
+    if (turnos.empty()) {
+        cout << "Nao ha turnos sem condutores associados!" << endl;
+    } else {
+        // obteve turnos, mostrar ao utilizador
+        int counter = 1;
+        for (Turno turno: turnos) {
+            cout << counter << " -> ";
+            displayTurno(turno);
+            counter++;
+        }
+    }
+}
+
 void menuOptHandler(int opt){
     switch (opt) {
         case 1: gerirLinhas();
@@ -656,13 +726,17 @@ void menuOptHandler(int opt){
             break;
         case 5: visualizarTrabalhoDeUmCondutor();
             break;
-        case 6: listarCondutoresDisponiveis();
+        case 6:
+            visualizarInformacaoAutocarro();
             break;
         case 7: inquirirLinhasDeDeterminadaParagem();
             break;
         case 8: calcularMostrarPercursoEntreParagens();
             break;
         case 9: listarCondutoresSemServicoCompletoAtribuido();
+            break;
+        case 10:
+            listarTurnosSemCondutor();
             break;
         default: break;
     }
@@ -680,30 +754,28 @@ void showMenu(){
     cout.copyfmt(init);
 
     cout << "O que deseja fazer?" << endl;
-
     //  opcoes
-    cout << "1 -> Gerir linhas" << endl;
-    cout << "2 -> Gerir condutores" << endl;
-    cout << "3 -> Gerar e visualizar horários de uma paragem" << endl;
-    cout << "4 -> Gerar e visualizar horário de uma linha" << endl;
-    cout << "5 -> Visualizar trabalho de um condutor" << endl;
-    cout << "6 -> Listar condutores disponíveis" << endl;
-    cout << "7 -> Pesquisar sobre quais linhas incluem determinada paragem" << endl;
-    /* TODO Visualizar informação de um autocarro */
-    cout << "8 -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
-    /* TODO Listar todos os períodos de autocarros sem condutor atribuído. */
-    cout << "9 -> Listar condutores em serviço completo atribuido" << endl;
+    cout << "1  -> Gerir linhas" << endl;
+    cout << "2  -> Gerir condutores" << endl;
+    cout << "3  -> Gerar e visualizar horários de uma paragem" << endl;
+    cout << "4  -> Gerar e visualizar horário de uma linha" << endl; // TODO linha ida e volda
+    cout << "5  -> Visualizar trabalho de um condutor" << endl;
+    cout << "6  -> Visualizar informaçao de um autocarro" << endl;
+    cout << "7  -> Pesquisar sobre quais linhas incluem determinada paragem" << endl;
+    cout << "8  -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
+    cout << "9  -> Listar condutores sem serviço completo atribuido" << endl;
+    cout << "10 -> Listar turnos sem condutores atribuidos" << endl;
     /*
-    TODO
-     Efetuar interactivamente a atribuição de serviço a um condutor, permitindo ao utilizador ver as
-    disponibilidades de serviço dos autocarros, pedindo ao utilizador informação sobre um novo turno e
-    verificando a consistência dessa informação com as restrições de horário do condutor e restantes
-    dados existentes.
+    TODO Efetuar interactivamente a atribuição de serviço a um condutor,
+     permitindo ao utilizador ver as disponibilidades de serviço dos autocarros,
+     pedindo ao utilizador informação sobre um novo turno e verificando a consistência
+     dessa informação com as restrições de horário do condutor e restantes dados existentes.
      */
+    cout << "11 -> Efetuar atribuiçao de serviço a um condutor" << endl;
     cout << "0 -> Sair" << endl;
 
     //  verificar input
-    if (!(cin >> opt) || opt > 9 || opt < 0) {
+    if (!(cin >> opt) || opt > 10 || opt < 0) {
         cout << "Opção inválida!" << endl;
         return;
     }
