@@ -24,8 +24,8 @@ private:
 
     // funcoes private
     void atribuirServicoAosCondutores();
-
     void criarAutocarros();
+
 public:
     Transportadora();
 
@@ -35,9 +35,13 @@ public:
 
     void removerLinha(int opt);
 
+    void removerAutocarro(int linhaId, int ordemNaLinha);
+
     void addLinha(const Linha linha);
 
     void addCondutor(const Condutor condutor);
+
+    void addAutocarro(const Autocarro autocarro);
 
     const vector<Turno> getTurnosNaoAtribuidos();
 

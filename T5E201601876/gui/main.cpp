@@ -71,7 +71,7 @@ void displayTurno(Turno turno){
 
     cout << "Inicio: " << setw(10) << turno.getTempoInicio() << " ";
     cout << "Fim: " << setw(10) << turno.getTempoFim() << " ";
-    cout << "Tempo total do turno: " << setw(10) << turno.getTempoTotalEmMinutos() << " minutos" << endl;
+    cout << "Tempo total do turno (minutos): " << setw(10) << turno.getTempoTotalEmMinutos() << endl;
 
     // restaurar formatação default
     cout.copyfmt(init);
