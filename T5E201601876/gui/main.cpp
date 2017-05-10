@@ -62,10 +62,16 @@ void displayTurno(Turno turno){
     ios init(NULL);
     init.copyfmt(cout);
 
-    cout << "Linha: "<< turno.getLinhaId() << " ";
-    cout << "Numero: " << turno.getOrdemNaLinha() << " ";
-    cout << "Id do condutor: " << turno.getCondutorId() << " ";
-    cout << "Tempo total do turno: " << turno.getTempoTotalEmMinutos() << " minutos" << endl;
+    cout << "Linha: " << setw(5) << left << turno.getLinhaId() << " ";
+    cout << "Numero: " << setw(5) << turno.getOrdemNaLinha() << " ";
+
+    if (turno.getCondutorId() != -1) {
+        cout << "Id do condutor: " << turno.getCondutorId() << " ";
+    }
+
+    cout << "Inicio: " << setw(10) << turno.getTempoInicio() << " ";
+    cout << "Fim: " << setw(10) << turno.getTempoFim() << " ";
+    cout << "Tempo total do turno: " << setw(10) << turno.getTempoTotalEmMinutos() << " minutos" << endl;
 
     // restaurar formatação default
     cout.copyfmt(init);
@@ -201,7 +207,6 @@ void gerirLinhas(){
     cout << "1 -> Adicionar linha " << endl;
     cout << "2 -> Remover linha" << endl;
     cout << "3 -> Listar linhas disponíveis" << endl;
-    //  TODO gerir linhas
     cout << "0 -> Voltar ao menu" << endl;
 
     if (!(cin >> opt) || opt < 0 || opt > 4) {
@@ -296,6 +301,110 @@ void adicionarCondutor(){
     cout << "Condutor adicionado com sucesso!" << endl;
 }
 
+void alterarCondutor() {
+    int opt, editOpt;
+
+    cout << endl << " - Alterar condutor - " << endl;
+    //  mostrar linhas
+    listarCondutoresDisponiveis();
+
+    //  pedir para escolher linha
+    cout << "Deseja editar qual condutor?" << endl;
+    // validar entrada
+    if (!(cin >> opt) || opt > transportadora.getCondutores().size()) {
+        cout << "Opção inválida" << endl;
+        return;
+    }
+
+    Condutor escolhido = transportadora.getCondutores()[opt];
+    cout << "Condutor escolhido: " << endl;
+    displayCondutor(escolhido);
+
+    // o que deseja editar
+    cout << "O que deseja editar?" << endl;
+    cout << " 1 -> Mudar nome" << endl;
+    cout << " 2 -> Mudar turno maximo diario" << endl;
+    cout << " 3 -> Mudar horas maximas por semana" << endl;
+    cout << " 4 -> Mudar horas de descanso" << endl;
+    cout << " 0 -> Voltar" << endl;
+    // validar entrada
+    if (!(cin >> editOpt) || editOpt > 4 || editOpt < 0) {
+        cout << "Opção inválida" << endl;
+        return;
+    }
+
+    switch (editOpt) {
+        case 1: {
+            std::string nome;
+            cout << "Qual o nome e sobrenome do condutor?" << endl;
+            //nome verificar se tem nome e sobrenome
+            cin.ignore();
+            if (!(getline(cin, nome)) || split(nome, ' ').size() == 1) {
+                cout << "Erro: nome inválido!" << endl;
+                return;
+            }
+            // mudar valor
+            escolhido.setNome(nome);
+            // atualizar dados da lista
+            transportadora.removerCondutor(opt);
+            transportadora.addCondutor(escolhido);
+            // mudou com sucesso
+            cout << "Nome alterado com sucesso" << endl;
+            break;
+        }
+        case 2:
+            int horasDiaria;
+            cout << "Qual o novo turno maximo de horas diario?" << endl;
+            // validar entrada
+            if (!(cin >> horasDiaria) || horasDiaria < 0 || horasDiaria > 24) {
+                cout << "Horas por turno digitada invalida" << endl;
+                return;
+            }
+            // mudar valor
+            escolhido.setTurnoMax(horasDiaria);
+            // atualizar dados da lista
+            transportadora.removerCondutor(opt);
+            transportadora.addCondutor(escolhido);
+            // mudou com sucesso
+            cout << "Turno alterado com sucesso" << endl;
+            break;
+        case 3:
+            int horasSemana;
+            cout << "Qual o novo maximo de horas por semana?" << endl;
+            // validar entrada
+            if (!(cin >> horasSemana) || horasSemana < 0 || horasSemana > 168) {
+                cout << "Horas por semana digitada invalida" << endl;
+                return;
+            }
+            // mudar valor
+            escolhido.setHorasPorSemana(horasSemana);
+            // atualizar dados da lista
+            transportadora.removerCondutor(opt);
+            transportadora.addCondutor(escolhido);
+            // mudou com sucesso
+            cout << "Horas maximas por semana alteradas com sucesso" << endl;
+            break;
+        case 4:
+            int horasDescanso;
+            cout << "Qual o novo horario de descanso" << endl;
+            // validar entrada
+            if (!(cin >> horasDescanso) || horasDescanso < 0 || horasDescanso > 24) {
+                cout << "Horas de descanso digitada invalida" << endl;
+                return;
+            }
+            // mudar valor
+            escolhido.setDescanso(horasDescanso);
+            // atualizar dados da lista
+            transportadora.removerCondutor(opt);
+            transportadora.addCondutor(escolhido);
+            // mudou com sucesso
+            cout << "Descanso alterado com sucesso" << endl;
+            break;
+        default:
+            break;
+    }
+}
+
 void gerirCondutoresHandler(int opt){
     switch (opt) {
         case 1: adicionarCondutor();
@@ -304,7 +413,8 @@ void gerirCondutoresHandler(int opt){
             break;
         case 3: listarCondutoresDisponiveis();
             break;
-        case 4: //  TODO editar condutor
+        case 4:
+            alterarCondutor();
             break;
         default:
             break;
@@ -318,7 +428,7 @@ void gerirCondutores(){
     cout << "1 -> Adicionar condutor" << endl;
     cout << "2 -> Remover condutor" << endl;
     cout << "3 -> Listar condutores disponíveis" << endl;
-    //  TODO editar condutor
+    cout << "4 -> Alterar condutor" << endl;
     cout << "0 -> Voltar ao menu" << endl;
 
     if (!(cin >> opt) || opt < 0 || opt > 4) {
@@ -666,7 +776,6 @@ void listarCondutoresSemServicoCompletoAtribuido(){
     }
 }
 
-// TODO mostrar horario de inicio / fim
 void visualizarInformacaoAutocarro() {
     int opt, numOrdem;
 
@@ -707,7 +816,7 @@ void listarTurnosSemCondutor() {
         // obteve turnos, mostrar ao utilizador
         int counter = 1;
         for (Turno turno: turnos) {
-            cout << counter << " -> ";
+            cout << setw(5) << counter << " -> ";
             displayTurno(turno);
             counter++;
         }

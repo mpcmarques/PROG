@@ -56,3 +56,20 @@ std::ostream& operator<<(std::ostream &os, Condutor &condutor){
 
   return os;
 }
+
+void Condutor::setTurnoMax(int turnoMax) {
+  Condutor::turnoMax = turnoMax;
+}
+
+void Condutor::setHorasPorSemana(int horasPorSemana) {
+  Condutor::horasPorSemana = horasPorSemana;
+}
+
+void Condutor::setDescanso(int descanso) {
+  Condutor::descanso = descanso;
+}
+
+void Condutor::setNome(const std::string &nome) {
+  Condutor::nome = nome;
+}
+

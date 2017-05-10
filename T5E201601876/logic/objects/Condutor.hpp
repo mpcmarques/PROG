@@ -16,31 +16,46 @@
 #include "Autocarro.hpp"
 
 class Condutor {
-  int uid;                      //n de identificacao unico
-  int turnoMax;                    //n de minutos do turno
-  int horasPorSemana;           //n de minutos trabalhados por semana
-  int descanso;                 //n de de minutos em descanso
-  std::string nome;             //nome do condutor
-  std::vector<Turno> turnos;    //turnos
+    int uid;                      //n de identificacao unico
+    int turnoMax;                    //n de minutos do turno
+    int horasPorSemana;           //n de minutos trabalhados por semana
+    int descanso; //n de de minutos em descanso
+    std::string nome; //nome do condutor
+    std::vector<Turno> turnos;    //turnos
 
 public:
-  // construtores
-  Condutor();              //  to be used by file I/O
-  Condutor(int uid, std::string nome, int turno, int horasPorSemana, int descanso);
+    // construtores
+    Condutor();              //  to be used by file I/O
+    Condutor(int uid, std::string nome, int turno, int horasPorSemana, int descanso);
 
-  void addTurno(Turno turno);
+    void addTurno(Turno turno);
 
-  // gets
-  std::string getNome();
-  int getUid();
-  int getTurnoMax();
-  int getDescanso();
-  int getHorasPorSemana();
-  std::vector<Turno> getTurnos();
+    // gets
+    std::string getNome();
 
-  // operadores file IO
-  friend std::istream& operator>>(std::istream &is, Condutor &condutor);
-  friend std::ostream& operator<<(std::ostream &os, Condutor &condutor);
+    int getUid();
+
+    int getTurnoMax();
+
+    int getDescanso();
+
+    int getHorasPorSemana();
+
+    std::vector<Turno> getTurnos();
+
+    // setters
+    void setTurnoMax(int turnoMax);
+
+    void setHorasPorSemana(int horasPorSemana);
+
+    void setDescanso(int descanso);
+
+    void setNome(const std::string &nome);
+
+    // operadores file IO
+    friend std::istream &operator>>(std::istream &is, Condutor &condutor);
+
+    friend std::ostream &operator<<(std::ostream &os, Condutor &condutor);
 };
 
 #endif /* Condutor_h */

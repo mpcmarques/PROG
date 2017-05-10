@@ -159,4 +159,10 @@ void visualizarInformacaoAutocarro();
  */
 void listarTurnosSemCondutor();
 
+/**
+ * editar condutor de forma interativa
+ */
+void alterarCondutor();
+
+
 #endif
