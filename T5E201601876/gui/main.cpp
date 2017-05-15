@@ -495,22 +495,27 @@ void verHorariosDeUmaLinha(){
 
     for (int i = 0; i < (int) linha.getParagens().size(); i++) {
         Paragem paragem = linha.getParagens()[i];
+
+        if (i > 0) {
+            tempoInicio.addMinutos(linha.getTempos()[i - 1]);
+        }
+
         //  mostrar horarios da paragem
         displayHorariosParagem(tempoInicio, paragem, linha);
         cout << endl << endl;
-
-        tempoInicio.addMinutos(linha.getTempos()[i]);
     }
+
     // linha ao contrario
     cout << setw(25) << setfill(' ') << "Rumo " << linha.getParagens().front().getNome() << endl;
 
     for (int j = (int) linha.getParagens().size() - 1; j >= 0; j--) {
         Paragem paragem = linha.getParagens()[j];
+
         // mostrar horarios da paragem
         displayHorariosParagem(tempoInicio, paragem, linha);
         cout << endl << endl;
 
-        tempoInicio.addMinutos(linha.getTempos()[j]);
+        tempoInicio.addMinutos(linha.getTempos()[j - 1]);
     }
 
     // restaurar formatação default
@@ -778,7 +783,6 @@ void calcularCondutoresNecessariosParaLinha(){
     cout << endl;
 }
 
-//  TODO listarCondutoresSemServicoAtribuido : verificar se essa e a implementacao correta
 void listarCondutoresSemServicoCompletoAtribuido(){
     cout << endl << " - Listar condutores sem serviço completo atribuido  -" << endl;
 
@@ -804,7 +808,11 @@ void visualizarInformacaoAutocarro() {
     Linha linha = transportadora.getLinhas()[opt - 1];
 
     cout << "Digite o numero da ordem do autocarro entre 1 e " << linha.getNumeroAutocarrosNecessarios() << " : ";
+    /* apagar turno da lista de turnos nao atribuidos
+    turnosNaoAtribuidos.erase(turnosNaoAtribuidos.begin());
 
+    // remover minutos semanais restantes
+    minutosSemanaisRestantes -= turnoNaoAtribuido.getTempoTotalEmMinutos();*/
     if (!(cin >> numOrdem) || numOrdem > linha.getNumeroAutocarrosNecessarios()) {
         cout << "Erro: numero do autocarro na linha invalido!" << endl;
     }
@@ -931,18 +939,20 @@ void showMenu(){
 
     cout << "O que deseja fazer?" << endl;
     //  opcoes
-    cout << "1  -> Gerir linhas" << endl;
-    cout << "2  -> Gerir condutores" << endl;
-    cout << "3  -> Gerar e visualizar horários de uma paragem" << endl;
-    cout << "4  -> Gerar e visualizar horário de uma linha" << endl; // TODO linha ida e volda
-    cout << "5  -> Visualizar trabalho de um condutor" << endl;
-    cout << "6  -> Visualizar informaçao de um autocarro" << endl;
-    cout << "7  -> Pesquisar sobre quais linhas incluem determinada paragem" << endl;
-    cout << "8  -> Calcular e visualizar um percurso e tempos entre duas paragens" << endl;
-    cout << "9  -> Listar condutores sem serviço completo atribuido" << endl;
-    cout << "10 -> Listar turnos sem condutores atribuidos" << endl;
-    cout << "11 -> Efetuar atribuiçao de serviço a um condutor" << endl;
-    cout << "0 -> Sair" << endl;
+    cout << "1  ->  Gerir linhas" << endl;
+    cout << "2  ->  Gerir condutores" << endl;
+    cout << "3  ->  Gerar e visualizar horários de uma paragem" << endl; // TODO horario da volta
+    cout << "4  ->  Gerar e visualizar horário de uma linha" << endl; // TODO linha ida e volda
+    cout << "5  ->  Visualizar trabalho de um condutor" << endl;
+    cout << "6  ->  Visualizar informaçao de um autocarro" << endl;
+    cout << "7  ->  Pesquisar sobre quais linhas incluem determinada paragem" << endl;
+    cout << "8  ->  Calcular e visualizar um percurso e tempos entre duas paragens"
+         << endl;     // TODO: checar ordem da distancia
+    cout << "9  ->  Listar condutores sem serviço completo atribuido" << endl;   // TODO: verificar implementacao
+    cout << "10 ->  Listar turnos sem condutores atribuidos" << endl;
+    cout << "11 ->  Efetuar atribuiçao de serviço a um condutor"
+         << endl; // TODO corrigir: permitir criaçao de um turno novo
+    cout << "0  ->  Sair" << endl;
 
     //  verificar input
     if (!(cin >> opt) || opt > 11 || opt < 0) {
