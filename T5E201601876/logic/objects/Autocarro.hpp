@@ -11,13 +11,12 @@
 class Autocarro {
 private:
 int ordemNaLinha;
-int condutorId;
 int linhaId;
 
 std::vector<Turno> programacao;
 
 public:
-Autocarro(int linhaId, int condutorId, int ordemNaLinha);
+    Autocarro(int linhaId, int ordemNaLinha);
 
 void addTurno(Turno turno);
 void removerTurno(Turno turno);
@@ -25,7 +24,6 @@ void removerTurno(Turno turno);
 // getters
 const std::vector<Turno> getProgramacao();
 const int getOrdemNaLinha();
-const int getCondutorId();
 const int getLinhaId();
 };
 

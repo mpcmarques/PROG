@@ -53,7 +53,7 @@ const int Linha::getTempoPercurso(){
   return valorFinal;
 }
 
-const int Linha::getUid(){
+int Linha::getUid() const {
   return this->uid;
 }
 

@@ -176,7 +176,7 @@ void Transportadora::criarAutocarros(){
         for (int i = 0; i < linha.getNumeroAutocarrosNecessarios(); i++) { // loop autocarros necessarios
 
             // criar autocarro
-            Autocarro autocarro = Autocarro(linha.getUid(), -1, ordemNaLinha);
+            Autocarro autocarro = Autocarro(linha.getUid(), ordemNaLinha);
 
             // tempo de inicio do turno
             int tempoInicioSemanal = TEMPO_INICIO;
@@ -265,7 +265,7 @@ const Autocarro Transportadora::getAutocarro(int linhaId, int ordemNaLinha) cons
             return autocarro;
         }
     }
-    return Autocarro(0, 0, 0);
+    return Autocarro(0, 0);
 }
 
 void Transportadora::setCondutores(const vector<Condutor> &condutores) {

@@ -1,8 +1,7 @@
 #include "Autocarro.hpp"
 
-Autocarro:: Autocarro(int linhaId, int condutorId, int ordemNaLinha){
+Autocarro::Autocarro(int linhaId, int ordemNaLinha) {
   this->linhaId = linhaId;
-  this->condutorId = condutorId;
   this->ordemNaLinha = ordemNaLinha;
 }
 
@@ -25,9 +24,6 @@ void Autocarro::addTurno(Turno turno){
 
 const int Autocarro::getOrdemNaLinha(){
   return this->ordemNaLinha;
-}
-const int Autocarro::getCondutorId(){
-  return this->condutorId;
 }
 const int Autocarro::getLinhaId(){
   return this->linhaId;

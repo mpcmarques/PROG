@@ -34,7 +34,7 @@ public:
     int calcularTempoTotalEntreParagens(int posPrimeiraParagem, int posSegundaParagem);
 
     // getters
-    const int getUid();
+    int getUid() const;
 
     vector<Paragem> getParagens()const;
 

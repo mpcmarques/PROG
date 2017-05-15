@@ -14,7 +14,7 @@ using namespace std;
 static Transportadora transportadora;
 
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char *argv[]) {
     FileService fileService;
 
     transportadora = fileService.getTransportadora();
@@ -38,9 +38,9 @@ void displayAutocarro(Autocarro autocarro) {
     init.copyfmt(cout);
 
     // mostrar informacoes do autocarro
-    cout << endl << "Linha: " << autocarro.getLinhaId() << " ";
-    cout << "Numero: " << autocarro.getOrdemNaLinha() << " ";
-    cout << "Condutor: " << autocarro.getCondutorId() << endl;
+    cout << endl << "Autocarro: \n\t";
+    cout << "Linha: " << autocarro.getLinhaId() << " ";
+    cout << "Numero: " << autocarro.getOrdemNaLinha() << endl;
 
     // restaurar formatação default
     cout.copyfmt(init);
@@ -49,16 +49,11 @@ void displayAutocarro(Autocarro autocarro) {
     if (autocarro.getProgramacao().empty()) {
         cout << "Nao ha turnos neste autocarro!" << endl;
     } else {
-        cout << "Turnos: " << endl;
-
-        for (Turno turno: autocarro.getProgramacao()) {
-            cout << "\t";
-            displayTurno(turno);
-        }
+        listarTurnos(autocarro.getProgramacao());
     }
 }
 
-void displayTurno(Turno turno){
+void displayTurno(Turno turno) {
     // salvar formatação default
     ios init(NULL);
     init.copyfmt(cout);
@@ -78,7 +73,7 @@ void displayTurno(Turno turno){
     cout.copyfmt(init);
 }
 
-void displayParagem(Paragem paragem){
+void displayParagem(Paragem paragem) {
     // salvar formatação default
     ios init(NULL);
     init.copyfmt(cout);
@@ -89,7 +84,7 @@ void displayParagem(Paragem paragem){
     cout.copyfmt(init);
 }
 
-void displayLinha(Linha linha){
+void displayLinha(Linha linha) {
     // salvar formatação default
     ios init(NULL);
     init.copyfmt(cout);
@@ -106,7 +101,7 @@ void displayLinha(Linha linha){
     cout.copyfmt(init);
 }
 
-void listarLinhasDisponiveis(){
+void listarLinhasDisponiveis() {
     std::vector<Linha> linhas = transportadora.getLinhas();
     int count = 1;
     for (Linha linha : linhas) {
@@ -115,7 +110,7 @@ void listarLinhasDisponiveis(){
     }
 }
 
-void removerLinha(){
+void removerLinha() {
     unsigned int opt;
     cout << " - Remover Linha - " << endl;
     //  mostrar linhas
@@ -132,7 +127,7 @@ void removerLinha(){
     cout << "Linha removida com sucesso!" << endl;
 }
 
-void adicionarLinha(){
+void adicionarLinha() {
     vector<Paragem> newParagens;
     vector<int> newTempos;
 
@@ -188,20 +183,23 @@ void adicionarLinha(){
     cout << "Linha adicionada com sucesso!" << endl;
 }
 
-void gerirLinhasHandler(int opt){
+void gerirLinhasHandler(int opt) {
     switch (opt) {
-        case 1: adicionarLinha();
+        case 1:
+            adicionarLinha();
             break;
-        case 2: removerLinha();
+        case 2:
+            removerLinha();
             break;
-        case 3: listarLinhasDisponiveis();
+        case 3:
+            listarLinhasDisponiveis();
             break;
         default:
             break;
     }
 }
 
-void gerirLinhas(){
+void gerirLinhas() {
     int opt;
 
     cout << endl << "## GERIR LINHAS ##" << endl;
@@ -218,7 +216,7 @@ void gerirLinhas(){
     gerirLinhasHandler(opt);
 }
 
-void displayCondutor(Condutor condutor){
+void displayCondutor(Condutor condutor) {
     // salvar formatação default
     ios init(NULL);
     init.copyfmt(cout);
@@ -235,7 +233,7 @@ void displayCondutor(Condutor condutor){
     cout.copyfmt(init);
 }
 
-void listarCondutoresDisponiveis(){
+void listarCondutoresDisponiveis() {
     cout << " - Listar condutores disponíveis - " << endl;
     std::vector<Condutor> condutores = transportadora.getCondutores();
     int count = 0;
@@ -248,7 +246,7 @@ void listarCondutoresDisponiveis(){
     }
 }
 
-void removerCondutor(){
+void removerCondutor() {
     unsigned int opt;
     cout << " - Remover condutor - " << endl;
     //  mostrar linhas
@@ -266,7 +264,7 @@ void removerCondutor(){
     cout << "Condutor removido com sucesso!" << endl;
 }
 
-void adicionarCondutor(){
+void adicionarCondutor() {
     string nome;
     int turno, horasPorSemana, descanso;
 
@@ -406,13 +404,16 @@ void alterarCondutor() {
     }
 }
 
-void gerirCondutoresHandler(int opt){
+void gerirCondutoresHandler(int opt) {
     switch (opt) {
-        case 1: adicionarCondutor();
+        case 1:
+            adicionarCondutor();
             break;
-        case 2: removerCondutor();
+        case 2:
+            removerCondutor();
             break;
-        case 3: listarCondutoresDisponiveis();
+        case 3:
+            listarCondutoresDisponiveis();
             break;
         case 4:
             alterarCondutor();
@@ -422,7 +423,7 @@ void gerirCondutoresHandler(int opt){
     }
 }
 
-void gerirCondutores(){
+void gerirCondutores() {
     int opt;
 
     cout << endl << "## GERIR CONDUTORES ##" << endl;
@@ -440,7 +441,7 @@ void gerirCondutores(){
     gerirCondutoresHandler(opt);
 }
 
-void displayHorariosParagem(Time tempoInicio, Paragem paragem, Linha linha){
+void displayHorariosParagem(Time tempoInicio, Paragem paragem, Linha linha) {
     //set start time
     Time tempo = tempoInicio;
 
@@ -469,7 +470,7 @@ void displayHorariosParagem(Time tempoInicio, Paragem paragem, Linha linha){
     }
 }
 
-void verHorariosDeUmaLinha(){
+void verHorariosDeUmaLinha() {
     int opt;
 
     cout << " - Visualizar horários de uma linha - " << endl;
@@ -522,7 +523,7 @@ void verHorariosDeUmaLinha(){
     cout.copyfmt(init);
 }
 
-void visualizarTabelaComHorarioDeUmaParagem(){
+void visualizarTabelaComHorarioDeUmaParagem() {
     string nome;
     int opt;
     cout << endl << "Qual a linha que deseja consultar o horário da paragem?" << endl;
@@ -530,6 +531,7 @@ void visualizarTabelaComHorarioDeUmaParagem(){
 
     if (!(cin >> opt) || opt < 0 || opt > (int) transportadora.getLinhas().size()) {
         cout << "Erro: linha inválida" << endl;
+        return;
     }
     Linha linha = transportadora.getLinhas()[opt - 1];
 
@@ -547,21 +549,37 @@ void visualizarTabelaComHorarioDeUmaParagem(){
             cout << endl;
             //  mostrar horarios da paragem
             Time tempoInicio = Time(8, 0);
-            if (uid > 0) {
-                tempoInicio.addMinutos(linha.getTempos()[uid - 1]);
+            for (int j = 0; j < uid; j++) {
+                tempoInicio.addMinutos(linha.getTempos()[j]);
             }
+            // rumo
+            // linha ao contrario
+            cout << setw(25) << setfill(' ') << "Rumo " << linha.getParagens().back().getNome() << endl;
             displayHorariosParagem(tempoInicio, paragem, linha);
-            found = true;
             cout << endl;
-        } else {
-            uid++;
+
+            // last stop
+            if (uid != linha.getParagens().size() - 1) {
+                tempoInicio.addMinutos(linha.getTempoPercurso());
+                for (int i = (int) linha.getTempos().size() - 1; i > uid; i--) {
+                    tempoInicio.addMinutos(linha.getTempos()[i]);
+                }
+            }
+
+            // linha ao contrario
+            cout << endl << setw(25) << setfill(' ') << "Rumo " << linha.getParagens().front().getNome() << endl;
+            displayHorariosParagem(tempoInicio, paragem, linha);
+            cout << endl;
+
+            found = true;
         }
+        uid++;
     }
     if (!found)
         cout << "Paragem não encontrada" << endl;
 }
 
-void visualizarTrabalhoDeUmCondutor(){
+void visualizarTrabalhoDeUmCondutor() {
     int opt;
 
     cout << " - Visualizar trabalho de um condutor - " << endl;
@@ -573,16 +591,15 @@ void visualizarTrabalhoDeUmCondutor(){
     }
 
     Condutor condutor = transportadora.getCondutores()[opt];
+    cout << endl << "Condutor: \n\t";
     displayCondutor(condutor);
 
     // mostrar trabalhos do condutor
     cout << "Turnos: " << endl;
-    for (Turno turno: condutor.getTurnos()) {
-        displayTurno(turno);
-    }
+    listarTurnos(condutor.getTurnos());
 }
 
-void inquirirLinhasDeDeterminadaParagem(){
+void inquirirLinhasDeDeterminadaParagem() {
     string paragem;
     cout << " - Inquerir linhas de uma paragem - " << endl;
     cout << "Digite o nome da paragem: " << endl;
@@ -594,8 +611,9 @@ void inquirirLinhasDeDeterminadaParagem(){
     vector<Linha> linhasEncontradas = transportadora.getLinhasComParagem(paragem);
 
     if (linhasEncontradas.size() == 0) {
-        cout << "Paragem não encontrada!" << endl;
+        cout << endl << "Paragem não encontrada!" << endl;
     } else {
+        cout << endl << "Resultado :" << endl;
         for (Linha linha : linhasEncontradas) {
             displayLinha(linha);
         }
@@ -603,30 +621,41 @@ void inquirirLinhasDeDeterminadaParagem(){
 }
 
 void displayPercurso(Percurso percurso) {
+    // salvar formatação default
+    ios init(NULL);
+    init.copyfmt(cout);
+
     if (percurso.getPosPrimeiraParagem() == percurso.getPosSegundaParagem()) {
         cout << "As duas paragens coincidem!" << endl;
     } else if (percurso.getPosPrimeiraParagem() < percurso.getPosSegundaParagem()) {
         int tempoTotal = 0;
-        cout << "Percurso: " << endl;
+        cout << "Linha: " << percurso.getLinha().getUid() << endl;
         for (int j = percurso.getPosPrimeiraParagem(); j <= percurso.getPosSegundaParagem(); j++) {
             Paragem paragem = percurso.getLinha().getParagens()[j];
-            displayParagem(paragem);
+
+            cout << setw(25) << paragem.getNome() << setw(5) << setfill(' ') << " ";
+
             tempoTotal += percurso.getLinha().getTempos()[j - 1];
         }
     } else if (percurso.getPosPrimeiraParagem() > percurso.getPosSegundaParagem()) {
+        cout << "Linha: " << percurso.getLinha().getUid() << endl;
         int tempoTotal = 0;
-        cout << "Percurso: " << endl;
         for (int j = percurso.getPosPrimeiraParagem(); j >= percurso.getPosSegundaParagem(); j--) {
             Paragem paragem = percurso.getLinha().getParagens()[j];
-            displayParagem(paragem);
+
+            cout << setw(25) << paragem.getNome() << setw(5) << setfill(' ') << " ";
+
             tempoTotal += percurso.getLinha().getTempos()[j - 1];
         }
     }
     cout << endl;
+
+    // restaurar formatação default
+    cout.copyfmt(init);
 }
 
 void displayResultadoPercurso(ResultadoPercurso resultado) {
-    cout << "# Resultado: " << endl;
+    cout << endl;
     // display percursos
     for (Percurso percurso: resultado.getPercursos()) {
         displayPercurso(percurso);
@@ -635,7 +664,7 @@ void displayResultadoPercurso(ResultadoPercurso resultado) {
     cout << "Tempo total: " << resultado.getTempoTotal() << " minutos" << endl;
 }
 
-void calcularMostrarPercursoEntreParagens(){
+void calcularMostrarPercursoEntreParagens() {
     string opt1, opt2;
     priority_queue<ResultadoPercurso, vector<ResultadoPercurso>, ResultadoCompare> resultados;
 
@@ -687,8 +716,9 @@ void calcularMostrarPercursoEntreParagens(){
             resultados.push(resultado);
         }
 
-        // em todas as linhas que possui paragem final, pesquisar se uma das paragens
+        // em todas as linhas que possuem paragem inicial, ver se uma de suas paragens possui a linha final em comum
         for (Paragem paragem : linhaComParagemInicial.getParagens()) {
+
             vector<Linha> linhasComParagem = transportadora.getLinhasComParagem(paragem.getNome());
 
             // em toda linha que contem a paragem, verificar se existe a paragem final na linha
@@ -699,7 +729,8 @@ void calcularMostrarPercursoEntreParagens(){
                 int paragemFinalPos = linhaComParagem.getPosParagem(opt2);
 
                 // achou paragem final na linha que nao possui a paragem inicial
-                if (paragemFinalPos != -1 && linhaComParagem.getPosParagem(opt1) == -1) {
+                if (paragemFinalPos != -1 && linhaComParagem.getPosParagem(opt1) == -1 &&
+                    paragemInicialPos != paragemFinalPos) {
                     /* PERCURSO COMPOSTO DE DUAS ROTAS */
 
                     // calcular distancia da primeira rota
@@ -727,6 +758,7 @@ void calcularMostrarPercursoEntreParagens(){
             }
         }
     }
+
     // nao obteve resultados
     if (resultados.empty()) {
         cout << "Nao foi encontrado um percurso entre as paragens" << endl;
@@ -739,56 +771,14 @@ void calcularMostrarPercursoEntreParagens(){
     }
 }
 
-void calcularCondutoresNecessariosParaLinha(){
-    int linhaopt;
-
-    cout << endl << " - Condutores necessários por linha - " << endl;
-    cout << "Linhas: " << endl << endl;
-    //  mostrar linhas
-    listarLinhasDisponiveis();
-    cout << endl;
-
-    //  pedir para escolher linha
-    cout << "Escolha a linha para a calcular a distância: " << endl;
-    // verificar escolha
-    if (!(cin >> linhaopt) || linhaopt <= 0 || linhaopt > (int) transportadora.getLinhas().size()) {
-        cout << "Erro: escolha inválida" << endl;
-        return;
-    }
-    cout << endl;
-    Linha linha = transportadora.getLinhas()[linhaopt - 1];
-
-    //  mostrar linha
-    cout << "Linha: " << endl;
-    displayLinha(linha);
-
-    //int totalHoras = linha.getTempoPercurso();
-    int turno;
-
-    cout << endl << "Quantas horas tem o turno?" << endl;
-
-    if (!(cin >> turno) || turno <= 0) {
-        cout << "Erro: valor inválido! " << endl;
-    }
-
-    int horasLinha = 22 - 8;
-    int resultado = horasLinha / turno;
-
-    if (resultado <= 1) {
-        cout << "É necessário apenas um condutor!" << endl;
-    } else {
-        cout << "São necessários " << resultado << " condutores" << endl;
-
-    }
-    cout << endl;
-}
-
-void listarCondutoresSemServicoCompletoAtribuido(){
+void listarCondutoresSemServicoCompletoAtribuido() {
     cout << endl << " - Listar condutores sem serviço completo atribuido  -" << endl;
 
     vector<Condutor> condutoresSemServico = transportadora.getCondutoresSemServicoAtribuidos();
     for (Condutor condutor: condutoresSemServico) {
+        cout << "Condutor:\n\t";
         displayCondutor(condutor);
+        cout << "Minutos semanais restantes: " << condutor.getMinutosSemanaisRestantes() << endl << endl;
     }
 }
 
@@ -808,11 +798,7 @@ void visualizarInformacaoAutocarro() {
     Linha linha = transportadora.getLinhas()[opt - 1];
 
     cout << "Digite o numero da ordem do autocarro entre 1 e " << linha.getNumeroAutocarrosNecessarios() << " : ";
-    /* apagar turno da lista de turnos nao atribuidos
-    turnosNaoAtribuidos.erase(turnosNaoAtribuidos.begin());
 
-    // remover minutos semanais restantes
-    minutosSemanaisRestantes -= turnoNaoAtribuido.getTempoTotalEmMinutos();*/
     if (!(cin >> numOrdem) || numOrdem > linha.getNumeroAutocarrosNecessarios()) {
         cout << "Erro: numero do autocarro na linha invalido!" << endl;
     }
@@ -895,26 +881,34 @@ void efetuarAtribuicaoDeServicoAumCondutor() {
     cout << endl;
 }
 
-void menuOptHandler(int opt){
+void menuOptHandler(int opt) {
     switch (opt) {
-        case 1: gerirLinhas();
+        case 1:
+            gerirLinhas();
             break;
-        case 2: gerirCondutores();
+        case 2:
+            gerirCondutores();
             break;
-        case 3: visualizarTabelaComHorarioDeUmaParagem();
+        case 3:
+            visualizarTabelaComHorarioDeUmaParagem();
             break;
-        case 4: verHorariosDeUmaLinha();
+        case 4:
+            verHorariosDeUmaLinha();
             break;
-        case 5: visualizarTrabalhoDeUmCondutor();
+        case 5:
+            visualizarTrabalhoDeUmCondutor();
             break;
         case 6:
             visualizarInformacaoAutocarro();
             break;
-        case 7: inquirirLinhasDeDeterminadaParagem();
+        case 7:
+            inquirirLinhasDeDeterminadaParagem();
             break;
-        case 8: calcularMostrarPercursoEntreParagens();
+        case 8:
+            calcularMostrarPercursoEntreParagens();
             break;
-        case 9: listarCondutoresSemServicoCompletoAtribuido();
+        case 9:
+            listarCondutoresSemServicoCompletoAtribuido();
             break;
         case 10:
             listarTurnosSemCondutor();
@@ -922,11 +916,12 @@ void menuOptHandler(int opt){
         case 11:
             efetuarAtribuicaoDeServicoAumCondutor();
             break;
-        default: break;
+        default:
+            break;
     }
 }
 
-void showMenu(){
+void showMenu() {
     int opt;
     // salvar formatação default
     ios init(NULL);
@@ -941,8 +936,8 @@ void showMenu(){
     //  opcoes
     cout << "1  ->  Gerir linhas" << endl;
     cout << "2  ->  Gerir condutores" << endl;
-    cout << "3  ->  Gerar e visualizar horários de uma paragem" << endl; // TODO horario da volta
-    cout << "4  ->  Gerar e visualizar horário de uma linha" << endl; // TODO linha ida e volda
+    cout << "3  ->  Gerar e visualizar horários de uma paragem" << endl;
+    cout << "4  ->  Gerar e visualizar horário de uma linha" << endl;
     cout << "5  ->  Visualizar trabalho de um condutor" << endl;
     cout << "6  ->  Visualizar informaçao de um autocarro" << endl;
     cout << "7  ->  Pesquisar sobre quais linhas incluem determinada paragem" << endl;
@@ -961,12 +956,14 @@ void showMenu(){
     }
 
     if (opt != 0) {
+        char c;
         menuOptHandler(opt);
+
         //  chama menu recursivamente
-        string line;
-        cout << "Tecle enter para voltar ao menu principal.." << endl;
-        cin.ignore();
-        getline(cin, line);
-        showMenu();
+        cout << endl << "Tecle Y para voltar ao menu principal, ou N para sair.." << endl;
+        if (!(cin >> c) || c == 'N') {}
+        else {
+            showMenu();
+        }
     }
 }

@@ -49,7 +49,7 @@ public:
 class ResultadoCompare {
 public:
     bool operator()(const ResultadoPercurso &r1, const ResultadoPercurso &r2) const {
-        return r1.getTempoTotal() < r2.getTempoTotal();
+        return r1.getTempoTotal() > r2.getTempoTotal();
     }
 };
 
