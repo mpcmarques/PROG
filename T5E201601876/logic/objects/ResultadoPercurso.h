@@ -18,14 +18,19 @@ class Percurso {
     int tempoPercurso;
 
 public:
+    /**
+     * Construtor da classe Percurso
+     * @param posPrimeiraParagem Posicao da primeira paragem na linha
+     * @param posSegundaParagem Posicao da segunda paragem na linha
+     * @param linha Linha do percurso
+     * @param tempoPercurso Tempo total de percurso
+     */
     Percurso(int posPrimeiraParagem, int posSegundaParagem, Linha linha, int tempoPercurso);
 
+    // getters
     int getTempoPercurso();
-
     int getPosPrimeiraParagem() const;
-
     int getPosSegundaParagem() const;
-
     const Linha &getLinha() const;
 };
 
@@ -34,18 +39,23 @@ public:
  * */
 class ResultadoPercurso {
     vector<Percurso> percursos;
-public:
-    const vector<Percurso> &getPercursos() const;
 
 public:
     ResultadoPercurso();
 
+    /*
+     * Adiciona tempo ao percurso
+     */
     void addPercurso(Percurso percurso);
 
+    // getters
+    const vector<Percurso> &getPercursos() const;
     int getTempoTotal() const;
-
 };
 
+/**
+ * Classe e utilizada na priority queue ordenada pela tempo de distancia
+ */
 class ResultadoCompare {
 public:
     bool operator()(const ResultadoPercurso &r1, const ResultadoPercurso &r2) const {

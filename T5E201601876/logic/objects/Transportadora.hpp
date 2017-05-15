@@ -13,6 +13,9 @@
 
 using namespace std;
 
+/**
+ * Classe representa a transportadora
+ */
 class Transportadora {
 private:
     vector<Linha> linhas;
@@ -20,35 +23,83 @@ private:
     vector<Turno> turnos;
     vector<Autocarro> autocarros;
     int TEMPO_INICIO = 8 * 60;
-    int TEMPO_FIM = 22 * 60 - 1;
 
     // funcoes private
     void atribuirServicoAosCondutores();
+
     void criarAutocarros();
 
 public:
     Transportadora();
 
-    Transportadora(std::vector<Linha> linhas, std::vector<Condutor>);
+    /**
+     * Construtor da transportadora
+     * @param linhas Linhas da transportadora
+     * @param condutores Condutores da transportadora
+     */
+    Transportadora(std::vector<Linha> linhas, std::vector<Condutor> condutores);
 
+    /**
+     * Remove o condutor no indice
+     * @param opt Indice
+     */
     void removerCondutor(int opt);
 
+    /**
+     * Remove a linha no indice
+     * @param opt Indice
+     */
     void removerLinha(int opt);
 
+    /**
+     * Remove um autocarro
+     * @param linhaId Linha do autocarro a ser removido
+     * @param ordemNaLinha Num ordem do autocarro a ser removido
+     */
     void removerAutocarro(int linhaId, int ordemNaLinha);
 
+    /**
+     * Adiciona uma linha
+     * @param linha Linha a ser adicionada
+     */
     void addLinha(const Linha linha);
 
+    /**
+     * Adiciona um condutor
+     * @param condutor Condutor a ser adicionado
+     */
     void addCondutor(const Condutor condutor);
 
+    /**
+     * Adiciona um autocarro
+     * @param autocarro Autocarro a ser adicionado
+     */
     void addAutocarro(const Autocarro autocarro);
 
+    /**
+     * @param condutor Condutor a ser pesquisado
+     * @return Os turnos disponiveis ao condutor
+     */
     vector<Turno> getTurnosDisponiveisACondutor(Condutor condutor);
 
+    /**
+     * Atribui servico a um condutor
+     * @param condutor Condutor a ser atribuido servico
+     * @param turno Turno a ser atribuido a condutor
+     */
     void atribuirServicoAoCondutor(Condutor &condutor, Turno turno);
 
+    /**
+     * Retorna os turnos nao atribuidos
+     * @return Turnos nao atribuidos
+     */
     const vector<Turno> getTurnosNaoAtribuidos();
 
+    /**
+     * Retorna as linhas que contem a paragem
+     * @param nome Nome da paragem
+     * @return Linhas que contem a paragem
+     */
     vector<Linha> getLinhasComParagem(string nome);
 
     //  getters

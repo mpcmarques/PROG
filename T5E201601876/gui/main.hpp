@@ -159,12 +159,9 @@ void visualizarInformacaoAutocarro();
  * */
 void listarTurnos(vector<Turno> turnos);
 
-/*
-    Efetuar interactivamente a atribuição de serviço a um condutor,
-    permitindo ao utilizador ver as disponibilidades de serviço dos autocarros,
-    pedindo ao utilizador informação sobre um novo turno e verificando a consistência
-    dessa informação com as restrições de horário do condutor e restantes dados existentes.
-    */
+/**
+ * Efetuar interactivamente a atribuição de serviço a um condutor, permitindo ao utilizador ver as disponibilidades de serviço dos autocarros, pedindo ao utilizador informação sobre um novo turno e verificando a consistência dessa informação com as restrições de horário do condutor e restantes dados existentes.
+  */
 void efetuarAtribuicaoDeServicoAumCondutor();
 
 /**

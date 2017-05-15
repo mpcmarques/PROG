@@ -13,12 +13,23 @@
 
 using namespace std;
 
+/**
+ * Classe representa uma paragem de autocarros
+ */
 class Paragem {
-  std::string nome;
+    std::string nome;
 
 public:
-  Paragem(std::string nome);
+    /**
+     * Construtor
+     * @param nome  Nome da paragem
+     */
+    Paragem(std::string nome);
 
+    /**
+     *
+     * @return Nome da paragem
+     */
     string getNome() const;
 
 };

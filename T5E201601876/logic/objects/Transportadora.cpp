@@ -113,7 +113,6 @@ void Transportadora::atribuirServicoAosCondutores(){
     // a medida que vai atribuindo servico aos condutores vai removendo os turnos
     // dos autocarros que vao sendo servidos.
     for (Condutor &condutor : this->condutores) {
-        int minutosSemanaisRestantes = condutor.getMinutosSemanaisRestantes();
 
         vector<Turno> turnosNaoAtribuidosDisponiveisAoCondutor = getTurnosDisponiveisACondutor(condutor);
 

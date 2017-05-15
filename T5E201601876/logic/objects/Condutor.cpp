@@ -18,7 +18,6 @@ bool Condutor::podeRealizarTurno(Turno turno) {
         // a ser adicionado
         for (Turno turnosAdquiridos: getTurnos()) {
             int tempoFinalNaoPermitido = turnosAdquiridos.getTempoFim() + getDescanso() * 60;
-            int tempoInicialNaoPermitido = turnosAdquiridos.getTempoInicio();
 
             // se um dos tempos + tempo de descanso passar o tempo de inicio, nao pode ser adicionado
             if (tempoFinalNaoPermitido > turno.getTempoInicio() && tempoFinalNaoPermitido < turno.getTempoFim()) {

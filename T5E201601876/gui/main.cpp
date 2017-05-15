@@ -856,29 +856,34 @@ void efetuarAtribuicaoDeServicoAumCondutor() {
     // obter turnos disponiveis
     vector<Turno> turnosNaoAtribuidos = transportadora.getTurnosDisponiveisACondutor(escolhido);
 
-    // mostrar turnos que podem ser adicionados
-    listarTurnos(turnosNaoAtribuidos);
+    if (turnosNaoAtribuidos.size() == 0) {
+        cout << "Nao existem mais turnos que possam ser atribuidos ao condutor, adicione mais uma linha ou um condutor"
+             << endl;
+    } else {
+        // mostrar turnos que podem ser adicionados
+        listarTurnos(turnosNaoAtribuidos);
 
-    // escolher turno a ser adicionado
-    int turnoOpt;
+        // escolher turno a ser adicionado
+        int turnoOpt;
 
-    cout << "Digite o numero do turno a ser adicionado: " << endl;
-    // validar escolha
-    if (!(cin >> turnoOpt) || turnoOpt < 0 || turnoOpt > turnosNaoAtribuidos.size()) {
-        cout << "Erro: escolha invalida" << endl;
-        return;
+        cout << "Digite o numero do turno a ser adicionado: " << endl;
+        // validar escolha
+        if (!(cin >> turnoOpt) || turnoOpt < 0 || turnoOpt > turnosNaoAtribuidos.size()) {
+            cout << "Erro: escolha invalida" << endl;
+            return;
+        }
+
+        transportadora.atribuirServicoAoCondutor(escolhido, turnosNaoAtribuidos[turnoOpt - 1]);
+
+        // atualizar condutor
+        transportadora.removerCondutor(condutOpt);
+        transportadora.addCondutor(escolhido);
+
+        // mostrar condutor
+        cout << endl << "Servico atribuido ao condutor com sucesso!" << endl;
+        displayCondutor(escolhido);
+        cout << endl;
     }
-
-    transportadora.atribuirServicoAoCondutor(escolhido, turnosNaoAtribuidos[turnoOpt - 1]);
-
-    // atualizar condutor
-    transportadora.removerCondutor(condutOpt);
-    transportadora.addCondutor(escolhido);
-
-    // mostrar condutor
-    cout << endl << "Servico atribuido ao condutor com sucesso!" << endl;
-    displayCondutor(escolhido);
-    cout << endl;
 }
 
 void menuOptHandler(int opt) {
