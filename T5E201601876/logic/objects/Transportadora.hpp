@@ -43,6 +43,10 @@ public:
 
     void addAutocarro(const Autocarro autocarro);
 
+    vector<Turno> getTurnosDisponiveisACondutor(Condutor condutor);
+
+    void atribuirServicoAoCondutor(Condutor &condutor, Turno turno);
+
     const vector<Turno> getTurnosNaoAtribuidos();
 
     vector<Linha> getLinhasComParagem(string nome);

@@ -41,6 +41,10 @@ public:
 
     int getHorasPorSemana();
 
+    int getMinutosSemanaisRestantes();
+
+    bool podeRealizarTurno(Turno turno);
+
     std::vector<Turno> getTurnos();
 
     // setters

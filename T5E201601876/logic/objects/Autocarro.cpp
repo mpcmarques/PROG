@@ -13,7 +13,8 @@ const std::vector<Turno> Autocarro::getProgramacao(){
 void Autocarro::removerTurno(Turno turno){
   for (int i = 0; i < (int)programacao.size() ; i++) {
     if (programacao[i] == turno) {
-      this->programacao.erase(programacao.begin()+i);
+        this->programacao.erase(programacao.begin() + i);
+        i--;
     }
   }
 }

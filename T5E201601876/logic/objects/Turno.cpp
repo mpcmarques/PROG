@@ -29,8 +29,8 @@ const int Turno::getCondutorId(){
 }
 
 const bool Turno::operator==(Turno &i1){
-    return i1.condutorUID == this->condutorUID && i1.linhaUID == this->linhaUID &&
-           i1.ordemNaLinha == this->ordemNaLinha && i1.tempoInicio == this->tempoInicio &&
+    return i1.linhaUID == this->linhaUID && i1.ordemNaLinha == this->ordemNaLinha &&
+           i1.tempoInicio == this->tempoInicio &&
            i1.tempoFim == this->tempoFim;
 }
 

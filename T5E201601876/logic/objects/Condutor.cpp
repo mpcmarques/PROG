@@ -10,6 +10,34 @@ Condutor::Condutor(int uid, std::string nome, int turno, int horasPorSemana, int
   this->descanso = descanso;
 }
 
+bool Condutor::podeRealizarTurno(Turno turno) {
+    // verificar se o turno esta dentro do horario de trabalho permitido e pode ser incluido nas horas semanais restantes
+    if (turno.getTempoTotalEmMinutos() < (getTurnoMax() * 60) &&
+        getMinutosSemanaisRestantes() - turno.getTempoTotalEmMinutos() >= 0) {
+        // verificar se o ultimo turno do condutor mais o tempo de descanso e menor que o tempo inicial do turno
+        // a ser adicionado
+        for (Turno turnosAdquiridos: getTurnos()) {
+            int tempoFinalNaoPermitido = turnosAdquiridos.getTempoFim() + getDescanso() * 60;
+            int tempoInicialNaoPermitido = turnosAdquiridos.getTempoInicio();
+
+            // se um dos tempos + tempo de descanso passar o tempo de inicio, nao pode ser adicionado
+            if (tempoFinalNaoPermitido > turno.getTempoInicio() && tempoFinalNaoPermitido < turno.getTempoFim()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+int Condutor::getMinutosSemanaisRestantes() {
+    int minutosSemanaisRestantes = 60 * horasPorSemana;
+    for (Turno turno: turnos) {
+        minutosSemanaisRestantes -= turno.getTempoTotalEmMinutos();
+    }
+    return minutosSemanaisRestantes;
+}
+
 std::vector<Turno> Condutor::getTurnos(){
   return this->turnos;
 }

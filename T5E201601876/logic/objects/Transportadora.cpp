@@ -22,14 +22,6 @@ Transportadora::Transportadora(){
     this->condutores = vector<Condutor>();
 }
 
-void findTurnoNaoAtribuido(vector<Autocarro> autocarros,Turno &turno){
-    for (Autocarro autocarro : autocarros) {
-        if (autocarro.getProgramacao().size() > 0) {
-            turno = autocarro.getProgramacao()[0];
-        }
-    }
-}
-
 const vector<Turno> Transportadora::getTurnosNaoAtribuidos(){
     vector<Turno> turnosNaoAtribuidos;
 
@@ -42,6 +34,21 @@ const vector<Turno> Transportadora::getTurnosNaoAtribuidos(){
     }
     return turnosNaoAtribuidos;
 }
+
+vector<Turno> Transportadora::getTurnosDisponiveisACondutor(Condutor condutor) {
+    vector<Turno> turnosNaoAtribuidos = getTurnosNaoAtribuidos();
+
+    // dos turnos disponiveis, remover os que nao podem ser adicionados (minutos totais < turno)
+    // i : turno nao atribuido
+    for (auto i = turnosNaoAtribuidos.begin(); i != turnosNaoAtribuidos.end(); i++) {
+        if (!condutor.podeRealizarTurno(*i)) {
+            turnosNaoAtribuidos.erase(i);
+            i--;
+        }
+    }
+    return turnosNaoAtribuidos;
+}
+
 /*
 const Autocarro Transportadora::getAutocarro(int linhaId, int ordemNaLinha){
         for (Autocarro autocarro : autocarros) {
@@ -56,11 +63,7 @@ vector<Condutor> Transportadora::getCondutoresSemServicoAtribuidos(){
     vector<Condutor> condutoresSemServico;
 
     for (Condutor condutor: condutores) {
-        int minutosSemanaisRestantes = 60 * condutor.getHorasPorSemana();
-
-        for (Turno turno: condutor.getTurnos()) {
-            minutosSemanaisRestantes -= turno.getTempoTotalEmMinutos();
-        }
+        int minutosSemanaisRestantes = condutor.getMinutosSemanaisRestantes();
 
         if (minutosSemanaisRestantes > 0) {
             condutoresSemServico.push_back(condutor);
@@ -82,72 +85,84 @@ void Transportadora::addAutocarro(const Autocarro autocarro) {
     this->autocarros.push_back(autocarro);
 }
 
+void Transportadora::atribuirServicoAoCondutor(Condutor &condutor, Turno turno) {
+    // adicionar o servico ao condutor
+    turno.setCondutorUID(condutor.getUid());
+    condutor.addTurno(turno);
+
+    /* apagar turno da lista de turnos nao atribuidos
+    turnosNaoAtribuidos.erase(turnosNaoAtribuidos.begin());
+
+    // remover minutos semanais restantes
+    minutosSemanaisRestantes -= turnoNaoAtribuido.getTempoTotalEmMinutos();*/
+
+    // atualizar turno no autocarro
+    Autocarro autocar = getAutocarro(turno.getLinhaId(), turno.getOrdemNaLinha());
+    removerAutocarro(autocar.getLinhaId(), autocar.getOrdemNaLinha());
+
+    // atualizar turno
+    autocar.removerTurno(turno);
+    autocar.addTurno(turno);
+    // salvar autocarro
+    addAutocarro(autocar);
+}
+
 void Transportadora::atribuirServicoAosCondutores(){
-    vector<Turno> turnosNaoAtribuidos = getTurnosNaoAtribuidos();
+    // vector<Turno> turnosNaoAtribuidos = getTurnosNaoAtribuidos();
 
     // a medida que vai atribuindo servico aos condutores vai removendo os turnos
     // dos autocarros que vao sendo servidos.
     for (Condutor &condutor : this->condutores) {
-        int minutosSemanaisRestantes = 60 * condutor.getHorasPorSemana();
+        int minutosSemanaisRestantes = condutor.getMinutosSemanaisRestantes();
 
-        // loop dos turnos, para tentar adicionar os turnos ao condutor
-        for (Turno turnoNaoAtribuido : turnosNaoAtribuidos) {
+        vector<Turno> turnosNaoAtribuidosDisponiveisAoCondutor = getTurnosDisponiveisACondutor(condutor);
 
-            // verificar se o condutor possui tempo semanal
-            if (minutosSemanaisRestantes - turnoNaoAtribuido.getTempoTotalEmMinutos() > 0) {
-                // verificar se o condutor ja tem algum servico
-                if (condutor.getTurnos().empty()) {
+        for (Turno turnoNaoAtt: turnosNaoAtribuidosDisponiveisAoCondutor) {
+
+            bool podeRealizar = condutor.podeRealizarTurno(turnoNaoAtt);
+
+            if (podeRealizar) {
+                atribuirServicoAoCondutor(condutor, turnoNaoAtt);
+            }
+        }
+    }
+
+    /*
+    // loop dos turnos, para tentar adicionar os turnos ao condutor
+    for (Turno turnoNaoAtribuido : turnosNaoAtribuidos) {
+
+        // verificar se o condutor possui tempo semanal
+        if (minutosSemanaisRestantes - turnoNaoAtribuido.getTempoTotalEmMinutos() >= 0) {
+            // verificar se o condutor ja tem algum servico
+            if (condutor.getTurnos().empty()) {
+                // adicionar o servico ao condutor
+                atribuirServicoAoCondutor(condutor, turnoNaoAtribuido);
+
+                // apagar turno da lista de turnos nao atribuidos
+                turnosNaoAtribuidos.erase(turnosNaoAtribuidos.begin());
+
+                // remover minutos semanais restantes
+                minutosSemanaisRestantes -= turnoNaoAtribuido.getTempoTotalEmMinutos();
+
+            } else {
+                // condutor ja tem algum servico
+                // verificar se o tempo do fim do ultimo servico + descanso em minutos é menor que a data do turno nao atribuido
+                if (condutor.getTurnos().back().getTempoFim() + (condutor.getDescanso() * 60) <
+                    turnoNaoAtribuido.getTempoInicio()) {
                     // adicionar o servico ao condutor
-                    turnoNaoAtribuido.setCondutorUID(condutor.getUid());
-                    condutor.addTurno(turnoNaoAtribuido);
+                    atribuirServicoAoCondutor(condutor, turnoNaoAtribuido);
 
                     // apagar turno da lista de turnos nao atribuidos
                     turnosNaoAtribuidos.erase(turnosNaoAtribuidos.begin());
 
                     // remover minutos semanais restantes
                     minutosSemanaisRestantes -= turnoNaoAtribuido.getTempoTotalEmMinutos();
-
-                    // atualizar turno no autocarro
-                    Autocarro autocar = getAutocarro(turnoNaoAtribuido.getLinhaId(),
-                                                     turnoNaoAtribuido.getOrdemNaLinha());
-                    removerAutocarro(autocar.getLinhaId(), autocar.getOrdemNaLinha());
-                    // autalizar turno
-                    autocar.removerTurno(turnoNaoAtribuido);
-                    autocar.addTurno(turnoNaoAtribuido);
-                    // salvar autocarro
-                    addAutocarro(autocar);
-
-                } else {
-                    // condutor ja tem algum servico
-                    // verificar se o tempo do fim do ultimo servico + descanso em minutos é menor que a data do turno nao atribuido
-                    if (condutor.getTurnos().back().getTempoFim() + (condutor.getDescanso() * 60) <
-                        turnoNaoAtribuido.getTempoInicio()) {
-                        // adicionar o servico ao condutor
-                        turnoNaoAtribuido.setCondutorUID(condutor.getUid());
-                        condutor.addTurno(turnoNaoAtribuido);
-
-                        // apagar turno da lista de turnos nao atribuidos
-                        turnosNaoAtribuidos.erase(turnosNaoAtribuidos.begin());
-
-                        // remover minutos semanais restantes
-                        minutosSemanaisRestantes -= turnoNaoAtribuido.getTempoTotalEmMinutos();
-
-                        // atualizar turno no autocarro
-                        Autocarro autocar = getAutocarro(turnoNaoAtribuido.getLinhaId(),
-                                                         turnoNaoAtribuido.getOrdemNaLinha());
-                        removerAutocarro(autocar.getLinhaId(), autocar.getOrdemNaLinha());
-                        // autalizar turno
-                        autocar.removerTurno(turnoNaoAtribuido);
-                        autocar.addTurno(turnoNaoAtribuido);
-                        // salvar autocarro
-                        addAutocarro(autocar);
-                    }
                 }
-            } else {
-                // condutor nao possui tempo semanal
             }
+        } else {
+            // condutor nao possui tempo semanal
         }
-    }
+    }*/
 }
 
 void Transportadora::criarAutocarros(){
